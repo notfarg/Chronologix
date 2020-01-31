@@ -14,14 +14,6 @@ public class AgentMotor3D : MonoBehaviour
     public float groundingDistance;
     public LayerMask groundingLayers;
 
-    //Wall Detection
-    public bool isTouchingWall;
-    public float wallTouchDistance;
-    public Vector3 wallDirection;
-    public LayerMask wallLayers;
-    public float wallAngleThreshold;
-    public float wallCapsuleHeight;
-
     //Slopes
     public bool useSlopeSlowDown;
     public float slopeSlowDownAngleThreshold;
@@ -53,6 +45,7 @@ public class AgentMotor3D : MonoBehaviour
     {
         rBody = GetComponent<Rigidbody>();
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         CheckGround();
@@ -106,28 +99,6 @@ public class AgentMotor3D : MonoBehaviour
         }
     }
 
-    public void CheckForWalls()
-    {
-        Collider[] walls = new Collider[1];
-        //Finds any objects that will collide with a special check for walls
-        if (Physics.OverlapCapsuleNonAlloc(new Vector3(transform.position.x, transform.position.y + wallCapsuleHeight / 2, transform.position.z), new Vector3(transform.position.x, transform.position.y - wallCapsuleHeight / 2, transform.position.z), wallTouchDistance, walls, wallLayers) != 0)
-        {
-            //Determines if these objects are at a steep enough angle to be considered walls and not a ramp
-            if (Mathf.Abs(Quaternion.Angle(walls[0].transform.rotation, Quaternion.identity)) > wallAngleThreshold)
-            {
-                isTouchingWall = true;
-                //Gets a vector from the Motor's object to the closest point on the wall
-                wallDirection = Physics.ClosestPoint(transform.position, walls[0], walls[0].transform.position, walls[0].transform.rotation) - transform.position;
-                wallDirection = wallDirection.normalized;
-            }
-        }
-        else
-        {
-            isTouchingWall = false;
-            wallDirection = Vector3.zero;
-        }
-    }
-
     public void BasicJump(JumpData jump)
     {
         //Force the Rigidbody to move in opposite direction of directionGravity at initialVelocity
@@ -137,18 +108,6 @@ public class AgentMotor3D : MonoBehaviour
         //Apply the jump
         rBody.AddForce(currentVertVelocity, ForceMode.VelocityChange);
 
-    }
-
-    public void WallJump(JumpData jump, Vector3 dirWall)
-    {
-        //Force the Rigidbody to move in opposite direction of wallDirection and directionGravity at initialVelocity
-        localGravity = 2 * jump.height / (Mathf.Pow((jump.timeToPeak), 2));
-        float initialJumpVelocity = localGravity * (jump.timeToPeak);
-        Vector3 jumpVelocity = initialJumpVelocity * (wallDirection.normalized + -directionOfGravity.normalized).normalized;
-        float jumpMagnitude = (wallDirection + -directionOfGravity).magnitude;
-        currentVertVelocity = initialJumpVelocity * -directionOfGravity.normalized / jumpMagnitude;
-        //Apply jump
-        rBody.AddForce(jumpVelocity, ForceMode.VelocityChange);
     }
 
     public void ApplyLocalGravity()
@@ -229,16 +188,6 @@ public class AgentMotor3D : MonoBehaviour
             //rBody.velocity = currentMove + currentVertVelocity;
             rBody.AddForce(currentMove + currentVertVelocity - rBody.velocity, ForceMode.VelocityChange);
         }
-    }
-
-    public void BasicMove(Vector3 relativeDirection, float speed)
-    {
-        //Allows for the isolation of jump and movement speed
-        Vector3 currentMove = groundRotation * (currentMoveRotation * (relativeDirection * speed));
-        currentMoveSpeed = speed;
-        currentMoveDirection = relativeDirection;
-        //Based on last horizontal movement, add relevant force to increase horizontal speed
-        rBody.AddForce(currentMove + currentVertVelocity - rBody.velocity, ForceMode.VelocityChange);
     }
 
     //Accelerated Movement
