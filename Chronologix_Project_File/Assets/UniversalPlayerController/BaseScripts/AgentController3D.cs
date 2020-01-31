@@ -4,9 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(AgentMotor3D))]
 public class AgentController3D : MonoBehaviour
 {
-    public AgentMotor3D motor;
-    public Vector2 lastInput;
-    public Vector2 currentMoveInput;
+    [SerializeField]
+    private AgentMotor3D motor;
+    protected Vector2 lastInput;
+    [SerializeField]
+    private Vector2 currentMoveInput;
     public float groundFrictionFactor;
     public MovementData[] maxSpeeds;
     public MovementData currentSpeedData;
