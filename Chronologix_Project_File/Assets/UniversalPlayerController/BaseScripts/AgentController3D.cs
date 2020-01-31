@@ -11,7 +11,8 @@ public class AgentController3D : MonoBehaviour
     public MovementData[] maxSpeeds;
     public MovementData currentSpeedData;
     public MovementData lastSpeedData;
-    public JumpData basicJumpData;
+    [SerializeField]
+    private JumpData basicJumpData;
 
     public void Move(Vector2 input)
     {
