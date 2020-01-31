@@ -17,6 +17,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Chronologix/Scenes/TutorialTest.unity
     guid: bac3db0aab96e449a9593bc21cc2e93b
+  - enabled: 1
+    path: Assets/Leona/Scenes/Level1_Tutorial.unity
+    guid: 7e7bae0f15846ee40aa0caf3004d1f7d
+  - enabled: 1
+    path: Assets/Leona/Scenes/Level2_Town.unity
+    guid: 8c8ebce57ab4feb4bb3aaf60df45b77d
+  - enabled: 1
+    path: Assets/Leona/Scenes/Level3_Crossroad.unity
+    guid: 0f9cdd1f1fe87ea4c99323708e7940f7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 24654446b2cf1194780464bd33a81514,
       type: 2}

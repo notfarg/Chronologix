@@ -6,21 +6,21 @@ public class AgentController3D : MonoBehaviour
 {
 
     [SerializeField]
-    private Vector2 lastInput;
+    protected Vector2 lastInput;
     [SerializeField]
-    private AgentMotor3D motor;
+    protected AgentMotor3D motor;
     [SerializeField]
-    private Vector2 currentMoveInput;
+    protected Vector2 currentMoveInput;
     [SerializeField]
-    private float groundFrictionFactor;
+    protected float groundFrictionFactor;
     [SerializeField]
-    private MovementData[] maxSpeeds;
+    protected MovementData[] maxSpeeds;
     [SerializeField]
-    private MovementData currentSpeedData;
+    protected MovementData currentSpeedData;
     [SerializeField]
-    private MovementData lastSpeedData;
+    protected MovementData lastSpeedData;
     [SerializeField]
-    private JumpData basicJumpData;
+    protected JumpData basicJumpData;
 
     public void Move(Vector2 input)
     {
