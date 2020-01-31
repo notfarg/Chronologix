@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: ../Chronologix_FMOD/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637156013760000000
   LoadResult: 0
   FileSizes: []
   Exists: 1
---- !u!114 &11400000
+--- !u!114 &-6540561491666034951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27,21 +26,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
-  m_Name: FMODStudioCache
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: -7668174854237478108}
-  - {fileID: 2135805076222078599}
-  EditorEvents: []
-  EditorParameters: []
-  MasterBanks:
-  - {fileID: 2135805076222078599}
-  StringsBanks:
-  - {fileID: -7668174854237478108}
-  stringsBankWriteTime: 637156013760000000
-  cacheVersion: 3
---- !u!114 &2135805076222078599
+  Path: ../Chronologix_FMOD/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637160578581051482
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-5931211697996485807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../Chronologix_FMOD/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637159347261865495
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-2091908530935643994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,7 +70,33 @@ MonoBehaviour:
   lastModified: 637156013760000000
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../Chronologix_FMOD/Build/Desktop/Master.bank
+  SubDir: 
 --- !u!114 &5303154246525890072
 MonoBehaviour:
   m_ObjectHideFlags: 0
