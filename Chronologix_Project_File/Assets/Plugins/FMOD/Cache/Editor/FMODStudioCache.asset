@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: ../Chronologix_FMOD/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637160578581051482
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -70,14 +69,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -7668174854237478108}
-  - {fileID: 808015500613028676}
-  EditorEvents: []
-  EditorParameters: []
-  MasterBanks:
-  - {fileID: 808015500613028676}
-  StringsBanks:
-  - {fileID: -7668174854237478108}
-  stringsBankWriteTime: 637160578581051482
   cacheVersion: 3
 --- !u!114 &808015500613028676
 MonoBehaviour:
