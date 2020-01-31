@@ -5,7 +5,8 @@ using UnityEngine;
 public class AgentController3D : MonoBehaviour
 {
     public AgentMotor3D motor;
-    public Vector2 lastInput;
+    [SerializeField]
+    private Vector2 lastInput;
     public Vector2 currentMoveInput;
     public float groundFrictionFactor;
     public MovementData[] maxSpeeds;
