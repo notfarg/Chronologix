@@ -4,7 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(AgentMotor3D))]
 public class AgentController3D : MonoBehaviour
 {
-    protected AgentMotor3D motor;
+    [SerializeField]
+    private AgentMotor3D motor;
     protected Vector2 lastInput;
     [SerializeField]
     private Vector2 currentMoveInput;
