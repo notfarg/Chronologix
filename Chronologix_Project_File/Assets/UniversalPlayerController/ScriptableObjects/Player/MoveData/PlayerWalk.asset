@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovementData
   type: 0
   speed: 4
-  accelTimeFactor: 0.5
-  decelTimeFactor: 0.25
+  accelTimeFactor: 0.2
+  decelTimeFactor: 0.1
   quickTurnTimeFactor: 0.1
-  swapOutTimeFactor: 0.25
+  swapOutTimeFactor: 0
