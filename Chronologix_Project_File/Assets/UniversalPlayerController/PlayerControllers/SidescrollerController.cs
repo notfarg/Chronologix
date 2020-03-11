@@ -15,20 +15,23 @@ public class SidescrollerController : AgentController3D
 
         if (motor.isGrounded)
         {
-            if (currentSpeedData.type == MoveType.Air)
-            {
-                for (int i = 0; i < maxSpeeds.Length; i++)
-                {
-                    if (maxSpeeds[i].type == MoveType.Normal)
-                    {
-                        currentSpeedData = maxSpeeds[i];
-                        break;
-                    }
-                }
-            }
+            currentSpeedData = groundMovement;
+        } else
+        {
+            currentSpeedData = airMovement;
         }
 
-        Move(currentMoveInput);
+        if (motor.CheckForWall(currentMoveInput.normalized))
+        {
+            Move(Vector3.zero);
+        } else {
+            Move(currentMoveInput);
+        }
+    }
+
+    private void Update()
+    {
+        motor.CheckGround();
     }
 
     public void JumpInput(InputAction.CallbackContext context)

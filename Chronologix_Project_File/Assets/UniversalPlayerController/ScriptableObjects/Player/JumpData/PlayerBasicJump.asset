@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3661d401ad1c4469157c0f0f6a518f, type: 3}
   m_Name: PlayerBasicJump
   m_EditorClassIdentifier: Assembly-CSharp::JumpData
-  height: 2
+  height: 4
   timeToPeak: 0.7

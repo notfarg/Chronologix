@@ -14,7 +14,9 @@ public class AgentController3D : MonoBehaviour
     [SerializeField]
     protected float groundFrictionFactor;
     [SerializeField]
-    protected MovementData[] maxSpeeds;
+    protected MovementData groundMovement;
+    [SerializeField]
+    protected MovementData airMovement;
     [SerializeField]
     protected MovementData currentSpeedData;
     [SerializeField]
@@ -67,14 +69,6 @@ public class AgentController3D : MonoBehaviour
         if (motor.isGrounded)
         {
             motor.BasicJump(basicJumpData);
-            for (int i = 0; i < maxSpeeds.Length; i++)
-            {
-                if (maxSpeeds[i].type == MoveType.Air)
-                {
-                    currentSpeedData = maxSpeeds[i];
-                    break;
-                }
-            }
             motor.isGrounded = false;
         }
     }

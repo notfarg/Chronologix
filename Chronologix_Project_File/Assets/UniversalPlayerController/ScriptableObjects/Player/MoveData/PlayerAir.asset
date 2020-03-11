@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c6b657e661764f46b206f19d64a5aa3, type: 3}
   m_Name: PlayerAir
   m_EditorClassIdentifier: Assembly-CSharp::MovementData
-  type: 0
+  type: 4
   speed: 4
-  accelTimeFactor: 0
-  decelTimeFactor: 0
-  quickTurnTimeFactor: 0
-  swapOutTimeFactor: 0
+  accelTimeFactor: 0.0001
+  decelTimeFactor: 0.0001
+  quickTurnTimeFactor: 0.0001
+  swapOutTimeFactor: 0.0001

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8560398271910691687}
   - component: {fileID: 8560398271910691686}
   - component: {fileID: 8560398271910691685}
-  - component: {fileID: 8560398271910691684}
   - component: {fileID: 8560398271910691675}
   - component: {fileID: 8560398271910691674}
   - component: {fileID: 8560398271910691673}
@@ -48,12 +47,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!136 &8560398271910691685
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -68,18 +67,6 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.25, z: 0}
---- !u!114 &8560398271910691684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8560398271910691672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c32c69ae23f5d114193ef8276fc385ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8560398271910691675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,11 +265,11 @@ MonoBehaviour:
   rBody: {fileID: 8560398271910691686}
   directionOfGravity: {x: 0, y: -1, z: 0}
   isGrounded: 0
-  groundingDistance: 0.1
+  groundingDistance: 0.01
   groundingLayers:
     serializedVersion: 2
     m_Bits: 257
-  useSlopeSlowDown: 1
+  useSlopeSlowDown: 0
   slopeSlowDownAngleThreshold: 30
   slopeStopSlideAngleThreshold: 50
   groundRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -304,6 +291,8 @@ MonoBehaviour:
   accelerationTimer: 0
   localGravity: 10
   currentVertVelocity: {x: 0, y: 0, z: 0}
+  wallCheckDistance: 0.1
+  wallCheckSize: {x: 0.5, y: 1.25, z: 0.5}
 --- !u!114 &8560398271910691673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,13 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76acd9fa55cdbb4d99e9b1efef263e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motor: {fileID: 8560398271910691674}
   lastInput: {x: 0, y: 0}
+  motor: {fileID: 8560398271910691674}
   currentMoveInput: {x: 0, y: 0}
   groundFrictionFactor: 0
-  maxSpeeds:
-  - {fileID: 11400000, guid: 63ff4cec89a421244bc045c32f59c7e6, type: 2}
-  - {fileID: 11400000, guid: f3016b162ddd0a941a37330133015cb7, type: 2}
+  groundMovement: {fileID: 11400000, guid: 63ff4cec89a421244bc045c32f59c7e6, type: 2}
+  airMovement: {fileID: 11400000, guid: f3016b162ddd0a941a37330133015cb7, type: 2}
   currentSpeedData: {fileID: 11400000, guid: 63ff4cec89a421244bc045c32f59c7e6, type: 2}
   lastSpeedData: {fileID: 11400000, guid: 63ff4cec89a421244bc045c32f59c7e6, type: 2}
   basicJumpData: {fileID: 11400000, guid: f2d4c7f6fa645a8478d43cfac7aaa90f, type: 2}
