@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-[RequireComponent(typeof(FixedPerspectiveCamController))]
 [RequireComponent(typeof(PlayerInput))]
 public class SidescrollerController : AgentController3D
 {

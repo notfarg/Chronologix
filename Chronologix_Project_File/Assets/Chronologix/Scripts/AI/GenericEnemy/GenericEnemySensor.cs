@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class FixedPerspectiveCamController : MonoBehaviour
+using ReGoap.Unity;
+public class GenericEnemySensor : ReGoapSensor<string, object>
 {
 
 }
