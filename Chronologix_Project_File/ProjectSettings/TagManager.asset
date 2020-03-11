@@ -13,19 +13,19 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
+  - Environment
   - Player
   - TimeStopper
-  - PhysicsSim
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - TimePhysicsSim
+  - Collectable
+  - Portal
+  - NPC
+  - Enemy
+  - PlayerCombat
+  - EnemyCombat
+  - Breakable
+  - Hazard
+  - Switch
   - 
   - 
   - 

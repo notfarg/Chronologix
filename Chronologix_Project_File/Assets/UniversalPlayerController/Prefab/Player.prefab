@@ -268,7 +268,7 @@ MonoBehaviour:
   groundingDistance: 0.01
   groundingLayers:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 256
   useSlopeSlowDown: 0
   slopeSlowDownAngleThreshold: 30
   slopeStopSlideAngleThreshold: 50
@@ -293,6 +293,10 @@ MonoBehaviour:
   currentVertVelocity: {x: 0, y: 0, z: 0}
   wallCheckDistance: 0.1
   wallCheckSize: {x: 0.5, y: 1.25, z: 0.5}
+  wallFound: 0
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 262400
 --- !u!114 &8560398271910691673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,7 +422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8560398273104092844}
   - component: {fileID: 8560398273104092845}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: playerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8560398273325029916}
   - component: {fileID: 8560398273325029917}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,8 +516,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8560398273325029907}
-  m_LocalRotation: {x: 0.02497661, y: -0.000000017214429, z: 4.3009252e-10, w: 0.999688}
-  m_LocalPosition: {x: 0, y: 0.5, z: -10}
+  m_LocalRotation: {x: -3e-45, y: -1e-45, z: -6.629451e-17, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8560398272757832070}
@@ -539,7 +543,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 8560398271910691687}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 8560398271910691687}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5

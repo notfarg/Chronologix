@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3407527045605412576}
   - component: {fileID: 8731923607882493810}
   - component: {fileID: 1565468865593068090}
-  m_Layer: 0
+  - component: {fileID: 432771895}
+  m_Layer: 12
   m_Name: Collectable_Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4732858109488208492}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -34.17325, y: 11.504308, z: 1130}
   m_LocalScale: {x: 0.06818784, y: 0.06818784, z: 0.06818784}
   m_Children: []
@@ -94,3 +95,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 7.56
   m_Center: {x: -0.000016212463, y: -0.0000019073486, z: -0.000015258789}
+--- !u!54 &432771895
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4732858109488208492}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

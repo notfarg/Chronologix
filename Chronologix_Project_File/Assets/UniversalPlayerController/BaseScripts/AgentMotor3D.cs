@@ -42,6 +42,7 @@ public class AgentMotor3D : MonoBehaviour
     public float wallCheckDistance;
     public Vector3 wallCheckSize;
     public bool wallFound;
+    public LayerMask wallLayers;
     private void Awake()
     {
         rBody = GetComponent<Rigidbody>();
@@ -51,7 +52,7 @@ public class AgentMotor3D : MonoBehaviour
     {
         //Look in direction of directionGravity for any objects in groundingLayer layer within groundingDistance units. If an object is found, isGrounded is true, else, false
         RaycastHit[] boxCastHits = new RaycastHit[1];
-        if (Physics.BoxCastNonAlloc(rBody.position + -directionOfGravity / 2, Vector3.one / 2, directionOfGravity, boxCastHits, Quaternion.identity, groundingDistance) != 0)
+        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up/2, new Vector3(0.4f,0.5f,0.4f), directionOfGravity, boxCastHits, Quaternion.identity, groundingDistance) != 0)
         {
             if (groundingLayers == (groundingLayers | (1 << boxCastHits[0].collider.gameObject.layer)))
             {
@@ -76,7 +77,7 @@ public class AgentMotor3D : MonoBehaviour
     public bool CheckForWall(Vector3 direction)
     {
         RaycastHit[] boxCastHits = new RaycastHit[1];
-        if (Physics.BoxCastNonAlloc(rBody.position + -directionOfGravity * 1.25f + direction.normalized * 0.1f, wallCheckSize, direction, boxCastHits, Quaternion.identity, wallCheckDistance, groundingLayers) != 0)
+        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y/2 + 0.1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, direction, boxCastHits, Quaternion.identity, wallCheckDistance, wallLayers) != 0)
         {
             return true;
         }
@@ -87,9 +88,9 @@ public class AgentMotor3D : MonoBehaviour
         if (isGrounded)
         {
             RaycastHit hit1, hit2, hit3;
-            Physics.Raycast(new Ray(transform.position + directionOfGravity * 0.1f, directionOfGravity), out hit1, Mathf.Infinity, groundingLayers);
-            Physics.Raycast(new Ray(transform.position + transform.forward * 0.1f + directionOfGravity * 0.1f, directionOfGravity), out hit2, Mathf.Infinity, groundingLayers);
-            Physics.Raycast(new Ray(transform.position + transform.right * 0.1f + directionOfGravity * 0.1f, directionOfGravity), out hit3, Mathf.Infinity, groundingLayers);
+            Physics.Raycast(new Ray(transform.position, directionOfGravity), out hit1, Mathf.Infinity, groundingLayers);
+            Physics.Raycast(new Ray(transform.position + transform.forward * 0.1f, directionOfGravity), out hit2, Mathf.Infinity, groundingLayers);
+            Physics.Raycast(new Ray(transform.position + transform.right * 0.1f, directionOfGravity), out hit3, Mathf.Infinity, groundingLayers);
 
             Vector3 vec1 = hit2.point - hit1.point;
             Vector3 vec2 = hit3.point - hit1.point;
