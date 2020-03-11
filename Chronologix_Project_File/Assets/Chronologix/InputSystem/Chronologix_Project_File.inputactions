@@ -22,28 +22,36 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "Sprint",
+                    "name": "TimeStopper",
                     "type": "Button",
-                    "id": "1f47b356-0abb-42e0-997e-29e963462fbf",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)"
-                },
-                {
-                    "name": "Crouch",
-                    "type": "Button",
-                    "id": "eca7ec72-b9d0-4c8a-8cd8-78fa0b95e954",
+                    "id": "08b75ba1-10c3-4fd7-ba07-6a7e2f084dff",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap"
                 },
                 {
-                    "name": "Prone",
+                    "name": "Pause",
                     "type": "Button",
-                    "id": "9f3a0228-cc36-476c-8ec3-7b2ab8028c4c",
+                    "id": "b392487f-2de1-433e-9f37-21cb68f10b95",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "MultiTap"
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "c1042940-d83a-4863-8749-ebf9332ce93a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "Map",
+                    "type": "Button",
+                    "id": "ccda4784-877e-4590-b115-8e88bd7cc002",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
                 }
             ],
             "bindings": [
@@ -159,30 +167,8 @@
                 },
                 {
                     "name": "",
-                    "id": "1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8",
-                    "path": "<XRController>/{Primary2DAxis}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3ea4d645-4504-4529-b061-ab81934c3752",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8561668a-1814-487f-a256-a1b981434085",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -203,67 +189,89 @@
                 },
                 {
                     "name": "",
-                    "id": "61799dc9-0039-4eca-8e9c-98aabe78c744",
-                    "path": "<Keyboard>/leftShift",
+                    "id": "c8e684cb-83ce-42e6-ae1a-9c05368a48ac",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Sprint",
+                    "groups": "Gamepad",
+                    "action": "TimeStopper",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "9c2241d1-1935-42b1-a8c2-d2ebeba12669",
+                    "id": "9adfb664-48cf-4196-944e-e72e54bc2417",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TimeStopper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7ed9a24-7e3a-4d2f-9640-096bba4bb378",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "256ea301-296b-4d5f-ad16-cf03976f3c79",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14b61239-349c-4ff5-8043-fdcb41274613",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Sprint",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "21bde084-26d0-4454-b57c-cd7c1e8ffe68",
-                    "path": "<Keyboard>/leftCtrl",
+                    "id": "75aaa9e2-e45d-479a-afa8-875507d1afc2",
+                    "path": "<Keyboard>/rightCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Crouch",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1bef08c4-ed70-4c77-8a29-4023fb33f47b",
-                    "path": "<Gamepad>/leftStickPress",
+                    "id": "dd4b190e-332b-428f-b00a-470f2065209a",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Crouch",
+                    "action": "Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "9e17ab8b-6944-4142-9abc-6ccbc354deac",
-                    "path": "<Keyboard>/leftCtrl",
+                    "id": "dd32e275-6834-4c77-9623-c78fab7a8eb4",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Prone",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fa1472a6-36bd-4c64-b321-e5bed5503f2b",
-                    "path": "<Gamepad>/leftStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Prone",
+                    "action": "Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

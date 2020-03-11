@@ -66,6 +66,6 @@ public class TimeStopAffector : MonoBehaviour
             timeStopCollider.radius = startRadius + (maxSize - startRadius) * (rateofShrink.Evaluate(shrinkTimer / maxShrinkTime));
             yield return new WaitForEndOfFrame();
         }
-        shrinkTimer = 0;
+        Destroy(this.gameObject);
     }
 }

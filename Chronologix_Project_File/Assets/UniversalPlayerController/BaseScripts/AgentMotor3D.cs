@@ -92,11 +92,19 @@ public class AgentMotor3D : MonoBehaviour
             Physics.Raycast(new Ray(transform.position + transform.forward * 0.1f, directionOfGravity), out hit2, Mathf.Infinity, groundingLayers);
             Physics.Raycast(new Ray(transform.position + transform.right * 0.1f, directionOfGravity), out hit3, Mathf.Infinity, groundingLayers);
 
-            Vector3 vec1 = hit2.point - hit1.point;
-            Vector3 vec2 = hit3.point - hit1.point;
-            groundNormal = Vector3.Cross(vec1, vec2).normalized;
-            groundRotation = Quaternion.FromToRotation(directionOfGravity, groundNormal);
-            groundAngle = Mathf.Round(Quaternion.Angle(Quaternion.identity, groundRotation));
+            if (((hit2.point - transform.position).magnitude <= (hit1.point - transform.position).magnitude * 5) && ((hit3.point - transform.position).magnitude <= (hit1.point - transform.position).magnitude * 5))
+            {
+                Vector3 vec1 = hit2.point - hit1.point;
+                Vector3 vec2 = hit3.point - hit1.point;
+                groundNormal = Vector3.Cross(vec1, vec2).normalized;
+                groundRotation = Quaternion.FromToRotation(directionOfGravity, groundNormal);
+                groundAngle = Mathf.Round(Quaternion.Angle(Quaternion.identity, groundRotation));
+            } else
+            {
+                groundNormal = -directionOfGravity;
+                groundRotation = Quaternion.identity;
+                groundAngle = 0f;
+            }
         }
         else
         {
