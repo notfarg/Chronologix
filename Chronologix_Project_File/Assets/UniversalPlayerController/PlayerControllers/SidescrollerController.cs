@@ -7,12 +7,14 @@ using UnityEngine.InputSystem.Interactions;
 [RequireComponent(typeof(PlayerInput))]
 public class SidescrollerController : AgentController3D
 {
+    public PlayerAttackSpawner attackData;
+
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         motor.ApplyLocalGravity();
         motor.FindGroundRotation();
-
+        motor.CheckGround();
         if (motor.isGrounded)
         {
             currentSpeedData = groundMovement;
@@ -27,11 +29,13 @@ public class SidescrollerController : AgentController3D
         } else {
             Move(currentMoveInput);
         }
-    }
-
-    private void Update()
-    {
-        motor.CheckGround();
+        if (currentMoveInput.x > 0)
+        {
+            attackData.facingLeft = false;
+        } else  if (currentMoveInput.x < 0)
+        {
+            attackData.facingLeft = true;
+        }
     }
 
     public void JumpInput(InputAction.CallbackContext context)

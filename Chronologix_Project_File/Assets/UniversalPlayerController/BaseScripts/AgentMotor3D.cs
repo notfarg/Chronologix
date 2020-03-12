@@ -33,8 +33,10 @@ public class AgentMotor3D : MonoBehaviour
     public Vector3 targetMoveDirection, startMoveDirection, lastMoveDirection;
     [HideInInspector]
     public Quaternion currentMoveRotation;
-    [HideInInspector]
-    public float accelerationX, accelerationY, accelerationZ, currentAccelerationTime, accelerationTimer;
+    public float accelerationX = 0;
+    public float accelerationY = 0;
+    public float accelerationZ = 0;
+    public float currentAccelerationTime, accelerationTimer;
 
     //Gravity and Jumping
     public float localGravity;
@@ -52,7 +54,7 @@ public class AgentMotor3D : MonoBehaviour
     {
         //Look in direction of directionGravity for any objects in groundingLayer layer within groundingDistance units. If an object is found, isGrounded is true, else, false
         RaycastHit[] boxCastHits = new RaycastHit[1];
-        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up/2, new Vector3(0.4f,0.5f,0.4f), directionOfGravity, boxCastHits, Quaternion.identity, groundingDistance) != 0)
+        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up / 2, new Vector3(0.4f, 0.5f, 0.4f), directionOfGravity, boxCastHits, Quaternion.identity, groundingDistance) != 0)
         {
             if (groundingLayers == (groundingLayers | (1 << boxCastHits[0].collider.gameObject.layer)))
             {
@@ -77,7 +79,7 @@ public class AgentMotor3D : MonoBehaviour
     public bool CheckForWall(Vector3 direction)
     {
         RaycastHit[] boxCastHits = new RaycastHit[1];
-        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y/2 + 0.1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, direction, boxCastHits, Quaternion.identity, wallCheckDistance, wallLayers) != 0)
+        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y / 2 + 0.1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, direction, boxCastHits, Quaternion.identity, wallCheckDistance, wallLayers) != 0)
         {
             return true;
         }
@@ -99,7 +101,8 @@ public class AgentMotor3D : MonoBehaviour
                 groundNormal = Vector3.Cross(vec1, vec2).normalized;
                 groundRotation = Quaternion.FromToRotation(directionOfGravity, groundNormal);
                 groundAngle = Mathf.Round(Quaternion.Angle(Quaternion.identity, groundRotation));
-            } else
+            }
+            else
             {
                 groundNormal = -directionOfGravity;
                 groundRotation = Quaternion.identity;
@@ -136,7 +139,7 @@ public class AgentMotor3D : MonoBehaviour
     {
         if (!isGrounded)
         {
-            currentVertVelocity += localGravity * directionOfGravity * Time.fixedDeltaTime;
+            currentVertVelocity += localGravity * directionOfGravity * Time.deltaTime;
         }
         else
         {
@@ -144,93 +147,33 @@ public class AgentMotor3D : MonoBehaviour
         }
     }
 
-    public void Move(Vector3 relativeDirection, float speed)
-    {
-        //Allows for the isolation of jump and movement speed
-        Vector3 currentMove = groundRotation * (currentMoveRotation * (relativeDirection * speed));
-        //Based on last horizontal movement, add relevant force to increase horizontal speed
-        if (isGrounded && useSlopeSlowDown)
-        {
-            if (groundAngle <= slopeSlowDownAngleThreshold)
-            {
-                //if touching the ground and the slope wont require a slow down, proceed as normal along the floor
-                rBody.AddForce(currentMove + currentVertVelocity - rBody.velocity, ForceMode.VelocityChange);
-            }
-            else
-            {
-                // else, check if we are walking uphill.
-                if (Vector3.Angle(groundNormal, currentMove.normalized) < 90)
-                {
-                    // if the normal is greater than 90 degrees then that means we are walking into the face, aka, uphill
-                    if (groundAngle < slopeStopSlideAngleThreshold)
-                    {
-                        //if still at a walkable slope, reduce speed by a factor according to how steep of an incline and the angle of attack against the slope
-                        //factor is represented by angle difference between ground and movement direction compared to the maximum possible (90 + ground angle)
-                        //rBody.velocity = currentMove * (Vector3.Angle(groundNormal, currentMove.normalized) / (90 + groundAngle)) + currentVertVelocity;
-                        rBody.AddForce(currentMove * (Vector3.Angle(groundNormal, currentMove.normalized) / (90 + groundAngle)) + currentVertVelocity - rBody.velocity, ForceMode.VelocityChange);
-                    }
-                    else
-                    {
-                        //if not at a walkable slope, don't move
-                        //rBody.velocity = currentVertVelocity;
-                        rBody.AddForce(currentVertVelocity - rBody.velocity, ForceMode.VelocityChange);
-
-                    }
-                }
-                else
-                {
-                    //if we are walking downhill, we want to SPEED UP downward movement or SLIDE down
-                    if (groundAngle < slopeStopSlideAngleThreshold)
-                    {
-                        //if still at a walkable slope, multiply speed by slope difference, 2* being the max
-                        //rBody.velocity = currentMove * (1 + 2 * ((groundAngle - slopeSlowDownAngleThreshold) / (slopeStopSlideAngleThreshold - slopeSlowDownAngleThreshold))) + currentVertVelocity;
-                        rBody.AddForce(currentMove * (1 + 2 * ((groundAngle - slopeSlowDownAngleThreshold) / (slopeStopSlideAngleThreshold - slopeSlowDownAngleThreshold))) + currentVertVelocity - rBody.velocity, ForceMode.VelocityChange);
-
-                    }
-                    else
-                    {
-                        //if not at a walkable slope, * 3 movement
-                        //rBody.velocity = currentMove * 3 + currentVertVelocity;
-                        rBody.AddForce(currentMove * 3 + currentVertVelocity - rBody.velocity, ForceMode.VelocityChange);
-
-                    }
-                }
-            }
-        }
-        else
-        {
-            //rBody.velocity = currentMove + currentVertVelocity;
-            rBody.AddForce(currentMove + currentVertVelocity - rBody.velocity, ForceMode.VelocityChange);
-        }
-    }
-
-    //Accelerated Movement
     public void Accelerate()
     {
         UpdateAccelValues();
-        if (accelerationTimer <= currentAccelerationTime)
+
+        if ((rBody.velocity.x >= targetMoveDirection.x * targetMoveSpeed) && accelerationX >= 0)
         {
-            //if time is still applicable, adjust
-            Vector3 currentVelocity = startMoveDirection * startMoveSpeed + new Vector3(accelerationX, accelerationY, accelerationZ) * accelerationTimer;
-            currentMoveSpeed = currentVelocity.magnitude;
-            currentMoveDirection = currentVelocity.normalized;
+            rBody.velocity = targetMoveDirection * targetMoveSpeed + currentVertVelocity;
+        }
+        else if ((rBody.velocity.x <= targetMoveDirection.x * targetMoveSpeed) && accelerationX <= 0)
+        {
+            rBody.velocity = targetMoveDirection * targetMoveSpeed + currentVertVelocity;
         }
         else
         {
-            //force values to expected targets when time is up
-            currentMoveSpeed = targetMoveSpeed;
-            currentMoveDirection = targetMoveDirection.normalized;
+            if (!float.IsNaN(accelerationX))
+            {
+                rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
+            }
         }
-
-        Move(currentMoveDirection, currentMoveSpeed);
-
     }
 
     // To be called every call of Accelerate()
     public void UpdateAccelValues()
     {
-        accelerationTimer += Time.fixedDeltaTime;
         currentMoveRotation = rBody.rotation;
+        currentMoveSpeed = Mathf.Abs(rBody.velocity.x);
+        currentMoveDirection = new Vector3(rBody.velocity.x, 0, 0).normalized;
     }
 
 
@@ -238,7 +181,6 @@ public class AgentMotor3D : MonoBehaviour
     public void Accelerate(float speed, Vector3 targetDir, float time)
     {
         CalcAcceleration(speed, targetDir, time);
-        Accelerate();
     }
 
     // Calculate Acceleratation values
@@ -246,20 +188,17 @@ public class AgentMotor3D : MonoBehaviour
     {
         targetMoveDirection = targetDir.normalized;
         targetMoveSpeed = targetSpd;
-        accelerationTimer = 0;
         currentAccelerationTime = time;
-        startMoveDirection = currentMoveDirection.normalized;
-        startMoveSpeed = currentMoveSpeed;
+        startMoveDirection = new Vector3(rBody.velocity.x, 0, 0).normalized;
+        startMoveSpeed = Mathf.Abs(rBody.velocity.x);
 
         AssignAcceleration();
     }
 
     public void AssignAcceleration()
     {
-        Vector3 tempTarget = targetMoveDirection;
-        Vector3 tempStart = startMoveDirection;
-        accelerationX = (tempTarget.x * targetMoveSpeed - tempStart.x * startMoveSpeed) / currentAccelerationTime;
-        accelerationY = (tempTarget.y * targetMoveSpeed - tempStart.y * startMoveSpeed) / currentAccelerationTime;
-        accelerationZ = (tempTarget.z * targetMoveSpeed - tempStart.z * startMoveSpeed) / currentAccelerationTime;
+        accelerationX = (targetMoveDirection.x * targetMoveSpeed - startMoveDirection.x * startMoveSpeed) / currentAccelerationTime;
+        accelerationY = (targetMoveDirection.y * targetMoveSpeed - startMoveDirection.y * startMoveSpeed) / currentAccelerationTime;
+        accelerationZ = (targetMoveDirection.z * targetMoveSpeed - startMoveDirection.z * startMoveSpeed) / currentAccelerationTime;
     }
 }

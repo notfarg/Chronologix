@@ -31,8 +31,8 @@ public class AgentController3D : MonoBehaviour
         {
             if (lastInput.magnitude <= 0.1f && input.magnitude > 0.1f)
             {
-                float timeToAccel = currentSpeedData.accelTimeFactor * Mathf.Abs(currentSpeedData.speed - motor.currentMoveSpeed);
-                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, input.y).normalized, timeToAccel);
+                float timeToAccel = currentSpeedData.accelTimeFactor * Vector3.Distance(input.normalized * currentSpeedData.speed,new Vector3(motor.rBody.velocity.x,0,0));
+                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, 0).normalized, timeToAccel);
             }
             else if (lastInput.magnitude > 0.1f && input.magnitude <= 0.1f)
             {
@@ -41,8 +41,8 @@ public class AgentController3D : MonoBehaviour
             }
             else if (lastInput.normalized != input.normalized && input.magnitude > 0.1f && lastInput.magnitude > 0.1f)
             {
-                float timeToAccel = currentSpeedData.quickTurnTimeFactor * Mathf.Abs(Vector3.Angle(new Vector3(input.x, 0, input.y).normalized, motor.lastMoveDirection) / 180f);
-                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, input.y).normalized, timeToAccel);
+                float timeToAccel = currentSpeedData.quickTurnTimeFactor * Mathf.Abs(Vector3.Angle(new Vector3(input.x, 0, 0).normalized, motor.currentMoveDirection) / 180f);
+                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, 0).normalized, timeToAccel);
             }
             else
             {
@@ -54,8 +54,8 @@ public class AgentController3D : MonoBehaviour
             // if the max speed has changed
             if (motor.currentMoveSpeed != currentSpeedData.speed)
             {
-                float timeToAccel = currentSpeedData.swapOutTimeFactor * Mathf.Abs(currentSpeedData.speed - motor.currentMoveSpeed);
-                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, input.y).normalized, timeToAccel);
+                float timeToAccel = currentSpeedData.swapOutTimeFactor * Vector3.Distance(input.normalized * currentSpeedData.speed, new Vector3(motor.rBody.velocity.x, 0, 0));
+                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, 0).normalized, timeToAccel);
             }
             lastSpeedData = currentSpeedData;
         }

@@ -13,13 +13,12 @@ public class PlayerAttackSpawner : MonoBehaviour
         {
             if (facingLeft)
             {
-                currentAttack = Instantiate(attackPrefab, transform.position + Vector3.left, Quaternion.identity);
+                currentAttack = Instantiate(attackPrefab, transform.position + Vector3.left + Vector3.up, Quaternion.identity, this.transform);
             }
             else
             {
-                currentAttack = Instantiate(attackPrefab, transform.position + Vector3.right, Quaternion.identity);
+                currentAttack = Instantiate(attackPrefab, transform.position + Vector3.right + Vector3.up, Quaternion.identity, this.transform);
             }
-            Destroy(currentAttack, 0.2f);
         }
         
     }

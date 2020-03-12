@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private void Awake()
+    {
+        Destroy(gameObject, 0.2f);
+    }
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
