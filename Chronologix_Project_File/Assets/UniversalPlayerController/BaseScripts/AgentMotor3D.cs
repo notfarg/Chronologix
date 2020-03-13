@@ -180,7 +180,10 @@ public class AgentMotor3D : MonoBehaviour
     // Accelerate() when a new speed/direction is being considered
     public void Accelerate(float speed, Vector3 targetDir, float time)
     {
-        CalcAcceleration(speed, targetDir, time);
+        if (time > 0.1f)
+        {
+            CalcAcceleration(speed, targetDir, time);
+        }
     }
 
     // Calculate Acceleratation values

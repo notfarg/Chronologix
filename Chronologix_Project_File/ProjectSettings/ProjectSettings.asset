@@ -612,10 +612,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: bbf01665-ce3b-46bd-86bf-7a2942ddc6aa
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Chronologix
+  organizationId: secret-whisper-studios
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 1
   disableOldInputManagerSupport: 0

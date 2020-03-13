@@ -26,23 +26,32 @@ public class AgentController3D : MonoBehaviour
 
     public void Move(Vector2 input)
     {
-        // If the max speed hasn't changed
         if (currentSpeedData == lastSpeedData)
         {
-            if (lastInput.magnitude <= 0.1f && input.magnitude > 0.1f)
+            if (motor.currentMoveSpeed != currentSpeedData.speed)
             {
-                float timeToAccel = currentSpeedData.accelTimeFactor * Vector3.Distance(input.normalized * currentSpeedData.speed,new Vector3(motor.rBody.velocity.x,0,0));
-                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, 0).normalized, timeToAccel);
-            }
-            else if (lastInput.magnitude > 0.1f && input.magnitude <= 0.1f)
-            {
-                float timeToAccel = currentSpeedData.decelTimeFactor * motor.currentMoveSpeed;
-                motor.Accelerate(0, new Vector3(input.x, 0, input.y).normalized, timeToAccel);
-            }
-            else if (lastInput.normalized != input.normalized && input.magnitude > 0.1f && lastInput.magnitude > 0.1f)
-            {
-                float timeToAccel = currentSpeedData.quickTurnTimeFactor * Mathf.Abs(Vector3.Angle(new Vector3(input.x, 0, 0).normalized, motor.currentMoveDirection) / 180f);
-                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, 0).normalized, timeToAccel);
+                if (lastInput != input)
+                {
+                    if (input.magnitude < 0.1f)
+                    {
+                        float timeToAccel = currentSpeedData.decelTimeFactor * motor.currentMoveSpeed;
+                        motor.Accelerate(0, input.normalized, timeToAccel);
+                    }
+                    else if (lastInput.magnitude < 0.1f)
+                    {
+                        float timeToAccel = currentSpeedData.accelTimeFactor * Mathf.Abs(motor.currentMoveSpeed - currentSpeedData.speed);
+                        motor.Accelerate(currentSpeedData.speed, input.normalized, timeToAccel);
+                    }
+                    else
+                    {
+                        float timeToAccel = currentSpeedData.quickTurnTimeFactor * Mathf.Abs(Vector2.Angle(input, lastInput) / 180);
+                        motor.Accelerate(currentSpeedData.speed, input.normalized, timeToAccel);
+                    }
+                }
+                else
+                {
+                    motor.Accelerate();
+                }
             }
             else
             {
@@ -51,15 +60,10 @@ public class AgentController3D : MonoBehaviour
         }
         else
         {
-            // if the max speed has changed
-            if (motor.currentMoveSpeed != currentSpeedData.speed)
-            {
-                float timeToAccel = currentSpeedData.swapOutTimeFactor * Vector3.Distance(input.normalized * currentSpeedData.speed, new Vector3(motor.rBody.velocity.x, 0, 0));
-                motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, 0).normalized, timeToAccel);
-            }
+            float timeToAccel = currentSpeedData.swapOutTimeFactor * Mathf.Abs(motor.currentMoveSpeed - currentSpeedData.speed);
+            motor.Accelerate(currentSpeedData.speed, input.normalized, timeToAccel);
             lastSpeedData = currentSpeedData;
         }
-        //update last input value
         lastInput = input;
     }
 
