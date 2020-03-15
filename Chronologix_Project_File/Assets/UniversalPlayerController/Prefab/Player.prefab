@@ -63,7 +63,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8560398271910691672}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e7376a6e7591e0149809bc814b5fe05c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -274,7 +274,7 @@ MonoBehaviour:
   groundNormal: {x: 0, y: 0, z: 0}
   groundAngle: 0
   currentMoveSpeed: 0
-  currentMoveDirection: {x: 0, y: 0, z: 0}
+  currentMoveDirection: {x: 1, y: 0, z: 0}
   targetMoveSpeed: 0
   startMoveSpeed: 0
   lastMoveSpeed: 0
@@ -290,7 +290,7 @@ MonoBehaviour:
   localGravity: 10
   currentVertVelocity: {x: 0, y: 0, z: 0}
   wallCheckDistance: 0.1
-  wallCheckSize: {x: 1, y: 2.5, z: 1}
+  wallCheckSize: {x: 1, y: 2.4, z: 1}
   wallFound: 0
   wallLayers:
     serializedVersion: 2

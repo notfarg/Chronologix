@@ -26,50 +26,38 @@ public class AgentController3D : MonoBehaviour
 
     public void Move(Vector2 input)
     {
-        if (currentSpeedData == lastSpeedData)
+        if (lastSpeedData.speed != currentSpeedData.speed)
         {
-            if (motor.currentMoveSpeed != currentSpeedData.speed)
-            {
-                if (lastInput != input)
-                {
-                    if (input.magnitude < 0.1f)
-                    {
-                        float timeToAccel = currentSpeedData.decelTimeFactor * motor.currentMoveSpeed;
-                        motor.Accelerate(0, input.normalized, timeToAccel);
-                    }
-                    else if (lastInput.magnitude < 0.1f)
-                    {
-                        float timeToAccel = currentSpeedData.accelTimeFactor * Mathf.Abs(motor.currentMoveSpeed - currentSpeedData.speed);
-                        motor.Accelerate(currentSpeedData.speed, input.normalized, timeToAccel);
-                    }
-                    else
-                    {
-                        float timeToAccel = currentSpeedData.quickTurnTimeFactor * Mathf.Abs(Vector2.Angle(input, lastInput) / 180);
-                        motor.Accelerate(currentSpeedData.speed, input.normalized, timeToAccel);
-                    }
-                }
-                else
-                {
-                    motor.Accelerate();
-                }
-            }
-            else
-            {
-                motor.Accelerate();
-            }
+            float timeToAccel = lastSpeedData.swapOutTimeFactor * Mathf.Abs(lastSpeedData.speed - currentSpeedData.speed);
+            motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, input.y), timeToAccel);
+        }
+        else if ((input.normalized != lastInput.normalized) && (input != Vector2.zero) && (lastInput != Vector2.zero))
+        {
+            float timeToAccel = lastSpeedData.quickTurnTimeFactor * Mathf.Abs(lastInput.x - input.x) / 2;
+            motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, input.y), timeToAccel);
+        }
+        else if ((motor.currentMoveSpeed < (new Vector3(input.x, 0, input.y).normalized * currentSpeedData.speed).magnitude) && (input != Vector2.zero && input != lastInput))
+        {
+            float timeToAccel = lastSpeedData.accelTimeFactor * Mathf.Abs(motor.rBody.velocity.x - input.x * currentSpeedData.speed);
+            motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, input.y), timeToAccel);
+        }
+        else if ((motor.currentMoveSpeed > 0) && (input == Vector2.zero && input != lastInput))
+        {
+            float timeToAccel = lastSpeedData.decelTimeFactor * motor.currentMoveSpeed;
+            motor.Accelerate(0, new Vector3(input.x, 0, input.y), timeToAccel);
         }
         else
         {
-            float timeToAccel = currentSpeedData.swapOutTimeFactor * Mathf.Abs(motor.currentMoveSpeed - currentSpeedData.speed);
-            motor.Accelerate(currentSpeedData.speed, input.normalized, timeToAccel);
-            lastSpeedData = currentSpeedData;
+            motor.Accelerate();
         }
+
+        lastSpeedData = currentSpeedData;
         lastInput = input;
     }
 
     public void Jump()
     {
-        
+
         if (motor.isGrounded)
         {
             motor.BasicJump(basicJumpData);

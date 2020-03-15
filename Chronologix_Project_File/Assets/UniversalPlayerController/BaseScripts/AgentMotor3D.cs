@@ -33,9 +33,9 @@ public class AgentMotor3D : MonoBehaviour
     public Vector3 targetMoveDirection, startMoveDirection, lastMoveDirection;
     [HideInInspector]
     public Quaternion currentMoveRotation;
-    public float accelerationX = 0;
-    public float accelerationY = 0;
-    public float accelerationZ = 0;
+    public float accelerationX;
+    public float accelerationY;
+    public float accelerationZ;
     public float currentAccelerationTime, accelerationTimer;
 
     //Gravity and Jumping
@@ -150,21 +150,13 @@ public class AgentMotor3D : MonoBehaviour
     public void Accelerate()
     {
         UpdateAccelValues();
-
-        if ((rBody.velocity.x >= targetMoveDirection.x * targetMoveSpeed) && accelerationX >= 0)
+        if (accelerationTimer < currentAccelerationTime)
         {
-            rBody.velocity = targetMoveDirection * targetMoveSpeed + currentVertVelocity;
-        }
-        else if ((rBody.velocity.x <= targetMoveDirection.x * targetMoveSpeed) && accelerationX <= 0)
+            accelerationTimer += Time.deltaTime;
+            rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
+        } else if (currentMoveSpeed < targetMoveSpeed)
         {
-            rBody.velocity = targetMoveDirection * targetMoveSpeed + currentVertVelocity;
-        }
-        else
-        {
-            if (!float.IsNaN(accelerationX))
-            {
-                rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-            }
+            rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
         }
     }
 
@@ -180,10 +172,7 @@ public class AgentMotor3D : MonoBehaviour
     // Accelerate() when a new speed/direction is being considered
     public void Accelerate(float speed, Vector3 targetDir, float time)
     {
-        if (time > 0.1f)
-        {
-            CalcAcceleration(speed, targetDir, time);
-        }
+        CalcAcceleration(speed, targetDir, time);
     }
 
     // Calculate Acceleratation values
@@ -192,6 +181,7 @@ public class AgentMotor3D : MonoBehaviour
         targetMoveDirection = targetDir.normalized;
         targetMoveSpeed = targetSpd;
         currentAccelerationTime = time;
+        accelerationTimer = 0;
         startMoveDirection = new Vector3(rBody.velocity.x, 0, 0).normalized;
         startMoveSpeed = Mathf.Abs(rBody.velocity.x);
 

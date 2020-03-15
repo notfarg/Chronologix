@@ -2990,21 +2990,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8560398271910691685, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: e7376a6e7591e0149809bc814b5fe05c,
-        type: 2}
     - target: {fileID: 8560398271910691674, guid: 979bfe9f472579b4288808c27a3f6256,
         type: 3}
-      propertyPath: currentAccelerationTime
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560398271910691674, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: currentMoveDirection.x
-      value: 1
+      propertyPath: wallCheckSize.y
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 979bfe9f472579b4288808c27a3f6256, type: 3}

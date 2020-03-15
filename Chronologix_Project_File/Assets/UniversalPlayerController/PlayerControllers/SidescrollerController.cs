@@ -9,6 +9,18 @@ public class SidescrollerController : AgentController3D
 {
     public PlayerAttackSpawner attackData;
 
+    private void Awake()
+    {
+        motor.CheckGround();
+        if (motor.isGrounded)
+        {
+            currentSpeedData = groundMovement;
+        }
+        else
+        {
+            currentSpeedData = airMovement;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -23,12 +35,13 @@ public class SidescrollerController : AgentController3D
             currentSpeedData = airMovement;
         }
 
-        if (motor.CheckForWall(currentMoveInput.normalized))
+        if (motor.CheckForWall(new Vector3(currentMoveInput.x,0,0).normalized))
         {
             Move(Vector3.zero);
         } else {
-            Move(currentMoveInput);
+            Move(currentMoveInput.normalized);
         }
+
         if (currentMoveInput.x > 0)
         {
             attackData.facingLeft = false;
@@ -48,6 +61,6 @@ public class SidescrollerController : AgentController3D
 
     public void MoveInput(InputAction.CallbackContext context)
     {
-        currentMoveInput = new Vector2(context.ReadValue<Vector2>().x, 0);
+        currentMoveInput = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
     }
 }
