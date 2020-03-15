@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 5279820510838729616}
   - component: {fileID: 1360369450}
   - component: {fileID: 161437929}
+  - component: {fileID: 1718577288373325403}
+  - component: {fileID: 1251749103}
+  - component: {fileID: 1251749104}
   m_Layer: 15
   m_Name: Enemy_Placeholder
   m_TagString: Untagged
@@ -110,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageVal: 2
-  knockbackSpeedVal: 4
+  knockbackSpeedVal: 2
   thingsToDamage:
     serializedVersion: 2
     m_Bits: 512
@@ -130,3 +133,84 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 1
+--- !u!114 &1718577288373325403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659525549010208638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707b43d57963b3747a613536572a35ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+--- !u!114 &1251749103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659525549010208638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2840c45c86e8d534ca5e405d263b4fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastInput: {x: 0, y: 0}
+  motor: {fileID: 1251749104}
+  currentMoveInput: {x: 0, y: 0}
+  groundFrictionFactor: 0
+  groundMovement: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
+  airMovement: {fileID: 11400000, guid: c5b56390f24fe114ea6227f237e9b8a4, type: 2}
+  currentSpeedData: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
+  lastSpeedData: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
+  basicJumpData: {fileID: 11400000, guid: 5b3a106ca1f1c15438d6b93fd05c7c55, type: 2}
+--- !u!114 &1251749104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659525549010208638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12272c64cedc03c46b7b244cb123657b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rBody: {fileID: 0}
+  directionOfGravity: {x: 0, y: -1, z: 0}
+  isGrounded: 0
+  groundingDistance: 0.01
+  groundingLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  useSlopeSlowDown: 0
+  slopeSlowDownAngleThreshold: 30
+  slopeStopSlideAngleThreshold: 50
+  groundRotation: {x: 0, y: 0, z: 0, w: 0}
+  groundNormal: {x: 0, y: 0, z: 0}
+  groundAngle: 0
+  currentMoveSpeed: 0
+  currentMoveDirection: {x: 1, y: 0, z: 0}
+  targetMoveSpeed: 0
+  startMoveSpeed: 0
+  lastMoveSpeed: 0
+  targetMoveDirection: {x: 0, y: 0, z: 0}
+  startMoveDirection: {x: 0, y: 0, z: 0}
+  lastMoveDirection: {x: 0, y: 0, z: 0}
+  currentMoveRotation: {x: 0, y: 0, z: 0, w: 0}
+  accelerationX: 0
+  accelerationY: 0
+  accelerationZ: 0
+  currentAccelerationTime: 0
+  accelerationTimer: 0
+  localGravity: 10
+  currentVertVelocity: {x: 0, y: 0, z: 0}
+  wallCheckDistance: 0.1
+  wallCheckSize: {x: 1, y: 2.5, z: 1}
+  wallFound: 0
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 262400

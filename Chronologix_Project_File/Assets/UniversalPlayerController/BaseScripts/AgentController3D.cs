@@ -31,11 +31,6 @@ public class AgentController3D : MonoBehaviour
             float timeToAccel = lastSpeedData.swapOutTimeFactor * Mathf.Abs(lastSpeedData.speed - currentSpeedData.speed);
             motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, input.y), timeToAccel);
         }
-        else if ((input.normalized != lastInput.normalized) && (input != Vector2.zero) && (lastInput != Vector2.zero))
-        {
-            float timeToAccel = lastSpeedData.quickTurnTimeFactor * Mathf.Abs(lastInput.x - input.x) / 2;
-            motor.Accelerate(currentSpeedData.speed, new Vector3(input.x, 0, input.y), timeToAccel);
-        }
         else if ((motor.currentMoveSpeed < (new Vector3(input.x, 0, input.y).normalized * currentSpeedData.speed).magnitude) && (input != Vector2.zero && input != lastInput))
         {
             float timeToAccel = lastSpeedData.accelTimeFactor * Mathf.Abs(motor.rBody.velocity.x - input.x * currentSpeedData.speed);

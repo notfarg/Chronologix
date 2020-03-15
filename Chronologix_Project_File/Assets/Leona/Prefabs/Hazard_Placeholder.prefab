@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2143751228784375439}
   - component: {fileID: 6724476276449569070}
   - component: {fileID: 6515813115383953597}
-  m_Layer: 0
+  - component: {fileID: 813997860}
+  m_Layer: 19
   m_Name: Hazard_Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,9 +26,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7207976491860421835}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 29.32, y: -6.8, z: 2.6}
-  m_LocalScale: {x: 0.177388, y: 0.2200067, z: 1}
+  m_LocalScale: {x: 0.6585073, y: 0.13836552, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -94,3 +95,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15.12, y: 14.999999, z: 1.1649485}
   m_Center: {x: 0, y: 0, z: 0.072751045}
+--- !u!114 &813997860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207976491860421835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac66145467d750e4a86fcf30a1e62468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageVal: 0
+  knockbackSpeedVal: 0
+  thingsToDamage:
+    serializedVersion: 2
+    m_Bits: 512

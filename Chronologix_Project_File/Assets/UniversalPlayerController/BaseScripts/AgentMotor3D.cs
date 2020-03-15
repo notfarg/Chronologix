@@ -150,13 +150,19 @@ public class AgentMotor3D : MonoBehaviour
     public void Accelerate()
     {
         UpdateAccelValues();
-        if (accelerationTimer < currentAccelerationTime)
-        {
-            accelerationTimer += Time.deltaTime;
-            rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-        } else if (currentMoveSpeed < targetMoveSpeed)
+        if (currentMoveSpeed < targetMoveSpeed)
         {
             rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
+        } else if (targetMoveSpeed == 0)
+        {
+            if (rBody.velocity.x > 0.1f && accelerationX < 0f)
+            {
+                rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
+            }
+            else if (rBody.velocity.x < -0.1f && accelerationX > 0f)
+            {
+                rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
+            }
         }
     }
 
