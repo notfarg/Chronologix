@@ -2975,20 +2975,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8560398271910691674, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: wallCheckSize.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 243176838, guid: 979bfe9f472579b4288808c27a3f6256, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560398273325029916, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 979bfe9f472579b4288808c27a3f6256, type: 3}
 --- !u!1 &331801346
