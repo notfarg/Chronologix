@@ -349,6 +349,8 @@ MonoBehaviour:
   attackPrefab: {fileID: 1505100397989814655, guid: 152c162834ed0064991464ac90432a4a,
     type: 3}
   facingLeft: 0
+  damageVal: 2
+  knockbackSpeedVal: 2
 --- !u!114 &322755830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,7 +563,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8560398273325029907}
   m_LocalRotation: {x: 1e-45, y: -1e-45, z: -6.629451e-17, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8560398272757832070}
@@ -590,7 +592,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 7
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

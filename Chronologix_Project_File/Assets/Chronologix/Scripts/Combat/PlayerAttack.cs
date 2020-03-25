@@ -22,9 +22,11 @@ public class PlayerAttack : MonoBehaviour
         else if (other.gameObject.layer == LayerMask.NameToLayer("Breakable"))
         {
             // deal damage to breakable object
+            Destroy(other.gameObject);
         } else if (other.gameObject.layer == LayerMask.NameToLayer("Switch"))
         {
             // trigger switch swap
+            other.gameObject.GetComponent<SwitchToggle>().Toggle();
         }
     }
 }

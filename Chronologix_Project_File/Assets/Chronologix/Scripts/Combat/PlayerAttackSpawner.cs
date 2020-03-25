@@ -7,6 +7,8 @@ public class PlayerAttackSpawner : MonoBehaviour
     public GameObject attackPrefab;
     public bool facingLeft;
     GameObject currentAttack;
+    public float damageVal;
+    public float knockbackSpeedVal;
     public void SpawnAttack()
     {
         if (currentAttack == null)
@@ -19,6 +21,9 @@ public class PlayerAttackSpawner : MonoBehaviour
             {
                 currentAttack = Instantiate(attackPrefab, transform.position + Vector3.right + Vector3.up, Quaternion.identity, this.transform);
             }
+
+            currentAttack.GetComponent<PlayerAttack>().damageVal = damageVal;
+            currentAttack.GetComponent<PlayerAttack>().knockbackSpeedVal = knockbackSpeedVal;
         }
         
     }
