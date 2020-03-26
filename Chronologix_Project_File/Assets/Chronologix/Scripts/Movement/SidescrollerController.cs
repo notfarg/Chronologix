@@ -22,7 +22,7 @@ public class SidescrollerController : AgentController3D
         }
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         motor.ApplyLocalGravity();
         motor.FindGroundRotation();
@@ -61,6 +61,6 @@ public class SidescrollerController : AgentController3D
 
     public void MoveInput(InputAction.CallbackContext context)
     {
-        currentMoveInput = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
+        currentMoveInput = new Vector2(context.ReadValue<Vector2>().x, 0);
     }
 }
