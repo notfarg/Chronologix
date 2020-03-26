@@ -57,10 +57,25 @@ public class SidescrollerController : AgentController3D
         {
             Jump();
         }
+
+        if (!AnalyticTracker.instance.playerHasJumped)
+        {
+            AnalyticTracker.instance.FirstJump();
+        }
+
+        if (GameManager.instance.nearNPC)
+        {
+            AnalyticTracker.instance.NPCInteract("attack");
+        }
     }
 
     public void MoveInput(InputAction.CallbackContext context)
     {
         currentMoveInput = new Vector2(context.ReadValue<Vector2>().x, 0);
+
+        if (!AnalyticTracker.instance.playerHasMoved)
+        {
+            AnalyticTracker.instance.FirstMove();
+        }
     }
 }

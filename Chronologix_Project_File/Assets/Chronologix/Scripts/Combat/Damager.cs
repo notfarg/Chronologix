@@ -14,6 +14,11 @@ public class Damager : MonoBehaviour
         {
             collision.collider.gameObject.GetComponent<CombatHealth>().currentHealth -= damageVal;
             collision.collider.gameObject.GetComponent<Rigidbody>().AddForce((collision.collider.gameObject.transform.position - transform.position + Vector3.up).normalized * knockbackSpeedVal, ForceMode.VelocityChange);
+            
+            if (thingsToDamage ==  (1 << LayerMask.NameToLayer("Player")))
+            {
+                AnalyticTracker.instance.DamageTaken(this.gameObject.name);
+            }
         }
     }
 }
