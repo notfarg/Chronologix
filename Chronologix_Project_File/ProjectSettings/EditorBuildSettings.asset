@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Chronologix/Scenes/Sample_Scene.unity
     guid: ffc173e5383c95241a501fcc181674a4
   - enabled: 1
-    path: Assets/Chronologix/Scenes/MenuTest.unity
+    path: Assets/Chronologix/Scenes/UI/Test/MenuTest.unity
     guid: 97f9d215a532446ef844ef5cf8ff31ba
   - enabled: 1
-    path: Assets/Chronologix/Scenes/MainGameTest.unity
+    path: Assets/Chronologix/Scenes/UI/Test/MainGameTest.unity
     guid: 354c0d56cd71340ceb32e6115b96722e
   - enabled: 1
-    path: Assets/Chronologix/Scenes/TutorialTest.unity
+    path: Assets/Chronologix/Scenes/UI/Test/TutorialTest.unity
     guid: bac3db0aab96e449a9593bc21cc2e93b
   - enabled: 1
     path: Assets/Chronologix/Scenes/Level1_Tutorial.unity
