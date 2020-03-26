@@ -6,23 +6,11 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     public Image health;
-    float maxHealth = 100f;
-    public static float healthValue;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        healthValue = maxHealth;
-    }
+    public CombatHealth playerHealth;
 
     // Update is called once per frame
     void Update()
     {
-        health.fillAmount = healthValue / maxHealth;
-
-        if (Input.GetKeyDown("h"))
-        {
-            healthValue -= 10f;
-        }
+        health.fillAmount = playerHealth.currentHealth / playerHealth.maxHealth;
     }
 }

@@ -5,6 +5,12 @@ using UnityEngine;
 public class CombatHealth : MonoBehaviour
 {
     public float currentHealth;
+    public float maxHealth;
+
+    private void Awake()
+    {
+        currentHealth = maxHealth;
+    }
 
     private void Update()
     {
