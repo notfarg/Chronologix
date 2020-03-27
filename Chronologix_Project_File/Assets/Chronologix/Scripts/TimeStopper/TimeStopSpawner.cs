@@ -25,9 +25,17 @@ public class TimeStopSpawner : MonoBehaviour
     {
         if (canSpawn)
         {
+            if (!AnalyticTracker.instance.playerHasTimeStopped)
+            {
+                AnalyticTracker.instance.FirstTimeStop();
+            }
             Instantiate(timeStopperPrefab, transform.position, Quaternion.identity);
             spawnRechargeTimer = 0;
             canSpawn = false;
+        }
+        if (GameManager.instance.nearNPC)
+        {
+            AnalyticTracker.instance.NPCInteract("attack");
         }
     }
 }

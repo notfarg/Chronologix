@@ -59,6 +59,7 @@ public class AgentMotor3D : MonoBehaviour
             if (groundingLayers == (groundingLayers | (1 << boxCastHits[0].collider.gameObject.layer)))
             {
                 isGrounded = true;
+                rBody.velocity = new Vector3(rBody.velocity.x, 0, 0);
             }
             else
             {
@@ -139,7 +140,7 @@ public class AgentMotor3D : MonoBehaviour
     {
         if (!isGrounded)
         {
-            currentVertVelocity += localGravity * directionOfGravity * Time.deltaTime;
+            currentVertVelocity += localGravity * directionOfGravity * Time.fixedDeltaTime;
         }
         else
         {
