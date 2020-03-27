@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
-public class AnalyticTracker : MonoBehaviour
+public class AnalyticTracker : MonoBehaviour@pp
 {
     public static AnalyticTracker instance;
     public bool playerHasMoved;
     public bool playerHasJumped;
     public bool playerHasAttacked;
     public bool playerHasTimeStopped;
+    public bool firstButtonPressed;
     public int interactAttemptCounter;
     private void Awake()
     {
@@ -22,6 +24,18 @@ public class AnalyticTracker : MonoBehaviour
         } else
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    public void Update()
+    {
+        if (!firstButtonPressed)
+        {
+            if (Input.anyKeyDown)
+            {
+                FirstButtonPressed(Input.inputString);
+                firstButtonPressed = true;
+            }
         }
     }
 
@@ -91,6 +105,35 @@ public class AnalyticTracker : MonoBehaviour
             {"level", SceneManager.GetActiveScene().name },
             {"location", GameManager.instance.player.transform.position },
             {"source", source }
+        });
+    }
+
+    public void FirstButtonPressed(string button)
+    {
+        Analytics.CustomEvent("ControlsMenuVisited", new Dictionary<string, object> {
+            {"timeToButtonPress", Time.realtimeSinceStartup },
+            {"buttonPressed", button }
+        });
+    }
+
+    public void ExitingControlsMenu()
+    {
+        Analytics.CustomEvent("ControlsMenuVisited", new Dictionary<string, object> {
+            {"totalTimeOnMenu", Time.timeSinceLevelLoad }
+        });
+    }
+
+    public void PauseMenuOpened()
+    {
+        Analytics.CustomEvent("PauseMenuVisited", new Dictionary<string, object> {
+            {"timeBeforeOpen", Time.realtimeSinceStartup }
+        });
+    }
+
+    public void MapOpened()
+    {
+        Analytics.CustomEvent("MapVisited", new Dictionary<string, object> {
+            {"timeBeforeOpen", Time.realtimeSinceStartup }
         });
     }
 }
