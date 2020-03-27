@@ -14,14 +14,15 @@ public class Menu : MonoBehaviour
     public GameObject soundMenuContent;
     public GameObject controlsMenuContent;
 
+    public GameObject splashScreen;
+
     public Toggle optionsToggle;
-    public Toggle soundToggle;
-    public Toggle controlToggle;
 
     private void Awake()
     {
         soundMenu.SetActive(false);
         controlsMenu.SetActive(false);
+
         soundMenuContent.SetActive(false);
         controlsMenuContent.SetActive(false);
     }
@@ -52,30 +53,16 @@ public class Menu : MonoBehaviour
 
     public void OpenSound()
     {
-        if (soundToggle.isOn)
-        {
-            soundMenuContent.SetActive(true);
-            controlsMenuContent.SetActive(false);
-        }
-        else
-        {
-            soundMenuContent.SetActive(false);
-            controlsMenuContent.SetActive(false);
-        }
+        soundMenuContent.SetActive(true);
+        
+        controlsMenuContent.SetActive(false);
+        
     }
 
     public void OpenControls()
     {
-        if (controlToggle.isOn)
-        {
-            soundMenuContent.SetActive(false);
-            controlsMenuContent.SetActive(true);
-        } else
-        {
-            soundMenuContent.SetActive(false);
-            controlsMenuContent.SetActive(false);
-        }
+        controlsMenuContent.SetActive(true);
+        soundMenuContent.SetActive(false);
 
     }
-
 }
