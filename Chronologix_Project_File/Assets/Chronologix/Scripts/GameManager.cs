@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject player;
+    public float playerHealth;
+    public float timeStopEnergy;
+    public int sceneFrom;
+    public int lastPortalID;
     public bool nearNPC;
     private void Awake()
     {
@@ -28,11 +32,30 @@ public class GameManager : MonoBehaviour
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                player.GetComponent<CombatHealth>().currentHealth = playerHealth;
+                player.GetComponent<TimeStopSpawner>().spawnRechargeTimer = timeStopEnergy;
+            }
         }
     }
 
     public void LoadScene(int sceneToLoad)
     {
+        sceneFrom = SceneManager.GetActiveScene().buildIndex;
+        if (player != null)
+        {
+            if (sceneToLoad != 0)
+            {
+                playerHealth = player.GetComponent<CombatHealth>().currentHealth;
+                timeStopEnergy = player.GetComponent<TimeStopSpawner>().spawnRechargeTimer;
+            } else
+            {
+                GameManager.instance.lastPortalID = 0;
+                playerHealth = 100;
+                timeStopEnergy = 20;
+            }
+        }
         SceneManager.LoadScene(sceneToLoad);
     }
 }

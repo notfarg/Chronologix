@@ -24,9 +24,14 @@ public class SidescrollerController : AgentController3D
     // Update is called once per frame
     void FixedUpdate()
     {
-        motor.ApplyLocalGravity();
-        motor.FindGroundRotation();
         motor.CheckGround();
+        motor.FindGroundRotation();
+
+        if (!motor.isGrounded)
+        {
+            motor.ApplyLocalGravity();
+        }
+
         if (motor.isGrounded)
         {
             currentSpeedData = groundMovement;
@@ -35,7 +40,7 @@ public class SidescrollerController : AgentController3D
             currentSpeedData = airMovement;
         }
 
-        if (motor.CheckForWall(new Vector3(currentMoveInput.x,0,0).normalized))
+        if (motor.CheckForWall(motor.groundRotation * new Vector3(currentMoveInput.x,0,0).normalized))
         {
             Move(Vector3.zero);
         } else {

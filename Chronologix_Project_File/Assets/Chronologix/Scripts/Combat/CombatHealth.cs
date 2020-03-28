@@ -25,9 +25,11 @@ public class CombatHealth : MonoBehaviour
         if (gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             // do something different for the player
+            GameManager.instance.LoadScene(0);
         } else
         {
             // Destroy anything else. add death animations here prior to that.
+            AnalyticTracker.instance.EnemyKilled();
             Destroy(gameObject);
         }
     }

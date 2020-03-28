@@ -15,9 +15,6 @@ public class AgentMotor3D : MonoBehaviour
     public LayerMask groundingLayers;
 
     //Slopes
-    public bool useSlopeSlowDown;
-    public float slopeSlowDownAngleThreshold;
-    public float slopeStopSlideAngleThreshold;
     public Quaternion groundRotation;
     public Vector3 groundNormal;
     public float groundAngle;
@@ -80,7 +77,7 @@ public class AgentMotor3D : MonoBehaviour
     public bool CheckForWall(Vector3 direction)
     {
         RaycastHit[] boxCastHits = new RaycastHit[1];
-        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y / 2 + 0.1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, direction, boxCastHits, Quaternion.identity, wallCheckDistance, wallLayers) != 0)
+        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y / 2 + 0.1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, groundRotation * direction, boxCastHits, groundRotation, wallCheckDistance, wallLayers) != 0)
         {
             return true;
         }
@@ -92,8 +89,8 @@ public class AgentMotor3D : MonoBehaviour
         {
             RaycastHit hit1, hit2, hit3;
             Physics.Raycast(new Ray(transform.position, directionOfGravity), out hit1, Mathf.Infinity, groundingLayers);
-            Physics.Raycast(new Ray(transform.position + transform.forward * 0.1f, directionOfGravity), out hit2, Mathf.Infinity, groundingLayers);
-            Physics.Raycast(new Ray(transform.position + transform.right * 0.1f, directionOfGravity), out hit3, Mathf.Infinity, groundingLayers);
+            Physics.Raycast(new Ray(transform.position + transform.right * 0.1f, directionOfGravity), out hit2, Mathf.Infinity, groundingLayers);
+            Physics.Raycast(new Ray(transform.position + transform.forward * 0.1f, directionOfGravity), out hit3, Mathf.Infinity, groundingLayers);
 
             if (((hit2.point - transform.position).magnitude <= (hit1.point - transform.position).magnitude * 5) && ((hit3.point - transform.position).magnitude <= (hit1.point - transform.position).magnitude * 5))
             {
@@ -165,6 +162,8 @@ public class AgentMotor3D : MonoBehaviour
                 rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
             }
         }
+
+        rBody.velocity = groundRotation * rBody.velocity;
     }
 
     // To be called every call of Accelerate()

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
-public class AnalyticTracker : MonoBehaviour@pp
+public class AnalyticTracker : MonoBehaviour
 {
     public static AnalyticTracker instance;
     public bool playerHasMoved;
@@ -17,11 +17,12 @@ public class AnalyticTracker : MonoBehaviour@pp
     public int interactAttemptCounter;
     private void Awake()
     {
-        if (instance==null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(instance.gameObject);
-        } else
+        }
+        else
         {
             Destroy(this.gameObject);
         }
@@ -41,12 +42,12 @@ public class AnalyticTracker : MonoBehaviour@pp
 
     public void LevelExited(int newLevel)
     {
-        Analytics.CustomEvent("FirstMoveAttempt", new Dictionary<string, object> {
-            {"playerHealth", GameManager.instance.player.GetComponent<CombatHealth>().currentHealth },
+        Analytics.CustomEvent("LevelExited", new Dictionary<string, object> {
+            {"playerHealth", GameManager.instance.player.GetComponent<CombatHealth>().currentHealth},
             {"timeSinceStartup", Time.timeSinceLevelLoad },
             {"oldLevel", SceneManager.GetActiveScene().name },
             {"newLevel", newLevel }
-        }) ;
+        });
     }
 
     public void FirstMove()
@@ -110,7 +111,7 @@ public class AnalyticTracker : MonoBehaviour@pp
 
     public void FirstButtonPressed(string button)
     {
-        Analytics.CustomEvent("ControlsMenuVisited", new Dictionary<string, object> {
+        Analytics.CustomEvent("FirstButtonPressed", new Dictionary<string, object> {
             {"timeToButtonPress", Time.realtimeSinceStartup },
             {"buttonPressed", button }
         });
@@ -130,10 +131,25 @@ public class AnalyticTracker : MonoBehaviour@pp
         });
     }
 
-    public void MapOpened()
+    public void FoundSecret(int secretID)
     {
-        Analytics.CustomEvent("MapVisited", new Dictionary<string, object> {
-            {"timeBeforeOpen", Time.realtimeSinceStartup }
+        Analytics.CustomEvent("FoundSecret", new Dictionary<string, object> {
+            {"timeToFind", Time.realtimeSinceStartup },
+            {"secretID",secretID }
+        });
+    }
+
+    public void ObjectDestroyed()
+    {
+
+        Analytics.CustomEvent("ObjectDestroyed", new Dictionary<string, object> {
+            {"timeToDestroy", Time.realtimeSinceStartup }
+        });
+    }
+    public void EnemyKilled()
+    {
+        Analytics.CustomEvent("EnemyKilled", new Dictionary<string, object> {
+            {"timeToKill", Time.realtimeSinceStartup }
         });
     }
 }
