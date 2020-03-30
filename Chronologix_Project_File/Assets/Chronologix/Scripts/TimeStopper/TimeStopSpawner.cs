@@ -35,7 +35,7 @@ public class TimeStopSpawner : MonoBehaviour
         }
         if (GameManager.instance.nearNPC)
         {
-            AnalyticTracker.instance.NPCInteract("attack");
+            AnalyticTracker.instance.NPCInteract("timestop");
         }
     }
 }

@@ -70,7 +70,7 @@ public class SidescrollerController : AgentController3D
 
         if (GameManager.instance.nearNPC)
         {
-            AnalyticTracker.instance.NPCInteract("attack");
+            AnalyticTracker.instance.NPCInteract("jump");
         }
     }
 
