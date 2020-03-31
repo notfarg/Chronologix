@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using Spine.Unity;
 
 [RequireComponent(typeof(PlayerInput))]
 public class SidescrollerController : AgentController3D
 {
     public PlayerAttackSpawner attackData;
-
+    public SkeletonAnimation animationController;
     private void Awake()
     {
         motor.CheckGround();
@@ -30,14 +31,21 @@ public class SidescrollerController : AgentController3D
         if (!motor.isGrounded)
         {
             motor.ApplyLocalGravity();
+            animationController.AnimationName = "Coze-Jumping";
         }
 
         if (motor.isGrounded)
         {
-            currentSpeedData = groundMovement;
+            if (currentSpeedData != groundMovement)
+            {
+                currentSpeedData = groundMovement;
+            }
         } else
         {
-            currentSpeedData = airMovement;
+            if (currentSpeedData != airMovement)
+            {
+                currentSpeedData = airMovement;
+            }
         }
 
         if (motor.CheckForWall(motor.groundRotation * new Vector3(currentMoveInput.x,0,0).normalized))
@@ -45,6 +53,23 @@ public class SidescrollerController : AgentController3D
             Move(Vector3.zero);
         } else {
             Move(currentMoveInput.normalized);
+            if (motor.isGrounded)
+            {
+                if (currentMoveInput.x > 0)
+                {
+                    animationController.gameObject.transform.localScale = new Vector3(-0.5f, 0.5f, 1);
+                    animationController.AnimationName = "Coze-Running";
+                }
+                else if (currentMoveInput.x < 0)
+                {
+                    animationController.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                    animationController.AnimationName = "Coze-Running";
+                }
+                else
+                {
+                    animationController.AnimationName = "Coze-Idle";
+                }
+            }
         }
 
         if (currentMoveInput.x > 0)

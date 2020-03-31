@@ -438,24 +438,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
         type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: m_NeverAutoSwitchControlSchemes
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 636072538}
     - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -463,28 +448,21 @@ PrefabInstance:
       objectReference: {fileID: 921261184}
     - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
         type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PauseWindow
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
-      propertyPath: m_UIInputModule
-      value: 
-      objectReference: {fileID: 636072538}
-    - target: {fileID: 8560398271910691675, guid: 979bfe9f472579b4288808c27a3f6256,
-        type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1245493658}
-    - target: {fileID: 8560398271910691674, guid: 979bfe9f472579b4288808c27a3f6256,
+    - target: {fileID: 8560398271910691673, guid: 979bfe9f472579b4288808c27a3f6256,
         type: 3}
-      propertyPath: useSlopeSlowDown
-      value: 0
+      propertyPath: animationController
+      value: 
+      objectReference: {fileID: 616856967}
+    - target: {fileID: 616856969, guid: 979bfe9f472579b4288808c27a3f6256, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 616856967, guid: 979bfe9f472579b4288808c27a3f6256, type: 3}
+      propertyPath: _animationName
+      value: Coze-Idle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 979bfe9f472579b4288808c27a3f6256, type: 3}
@@ -1761,6 +1739,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &616856967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 616856967, guid: 979bfe9f472579b4288808c27a3f6256,
+    type: 3}
+  m_PrefabInstance: {fileID: 89260580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &632074420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2697,7 +2687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 832062579}
   - component: {fileID: 832062578}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3810,7 +3800,7 @@ GameObject:
   - component: {fileID: 1189590049}
   - component: {fileID: 1189590051}
   - component: {fileID: 1189590050}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
