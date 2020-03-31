@@ -20,6 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Chronologix/Scenes/Level4_UpperSwamp.unity
     guid: 49846f1f1fd0e73499000067c0e71e35
+  - enabled: 1
+    path: Assets/Chronologix/Scenes/Level5_LowerSwamp.unity
+    guid: 56ca50b39b9e8b24c92892d6d6d718b2
+  - enabled: 1
+    path: Assets/Chronologix/Scenes/Level6_BossRoom.unity
+    guid: b70a43a58bc9b394da1298e9ab805a5b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 24654446b2cf1194780464bd33a81514,
       type: 2}

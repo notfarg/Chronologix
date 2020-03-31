@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: ../Chronologix_FMOD/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637205114927579477
+  lastModified: 637194663064985972
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -148,6 +148,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &-238819087419516888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../Chronologix_FMOD/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637159442244409252
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,14 +180,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -8194600157312764918}
-  - {fileID: 4950728866636312097}
+  - {fileID: 2331652761109023240}
   EditorEvents: []
   EditorParameters: []
   MasterBanks:
-  - {fileID: 4950728866636312097}
+  - {fileID: 2331652761109023240}
   StringsBanks:
   - {fileID: -8194600157312764918}
-  stringsBankWriteTime: 637205114927579477
+  stringsBankWriteTime: 637194663064985972
   cacheVersion: 3
 --- !u!114 &1960671698447721803
 MonoBehaviour:
@@ -186,6 +204,24 @@ MonoBehaviour:
   Path: ../Chronologix_FMOD/Build/Desktop/Master.bank
   SubDir: 
   lastModified: 637160578581051482
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &2331652761109023240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../Chronologix_FMOD/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637194663064975999
   LoadResult: 0
   FileSizes: []
   Exists: 1

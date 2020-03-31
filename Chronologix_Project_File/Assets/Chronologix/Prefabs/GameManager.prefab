@@ -68,7 +68,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerHealth: 100
+  timeStopEnergy: 20
+  sceneFrom: 0
+  lastPortalID: 0
   nearNPC: 0
+  numActiveSwitches: 0
 --- !u!114 &4530173074551482991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,4 +90,5 @@ MonoBehaviour:
   playerHasJumped: 0
   playerHasAttacked: 0
   playerHasTimeStopped: 0
+  firstButtonPressed: 0
   interactAttemptCounter: 0

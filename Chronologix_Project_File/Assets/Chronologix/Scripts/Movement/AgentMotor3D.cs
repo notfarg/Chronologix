@@ -77,11 +77,13 @@ public class AgentMotor3D : MonoBehaviour
     public bool CheckForWall(Vector3 direction)
     {
         RaycastHit[] boxCastHits = new RaycastHit[1];
-        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y / 2 + 0.1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, groundRotation * direction, boxCastHits, groundRotation, wallCheckDistance, wallLayers) != 0)
+        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y / 2 + 1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, direction, boxCastHits, groundRotation, wallCheckDistance, wallLayers) != 0)
         {
-            return true;
+            wallFound = true;
+            return wallFound;
         }
-        return false;
+        wallFound = false;
+        return wallFound;
     }
     public void FindGroundRotation()
     {
@@ -121,25 +123,16 @@ public class AgentMotor3D : MonoBehaviour
         localGravity = 2 * jump.height / (Mathf.Pow((jump.timeToPeak), 2));
         float initialJumpVelocity = localGravity * (jump.timeToPeak);
         currentVertVelocity = initialJumpVelocity * -directionOfGravity.normalized;
-        //Apply the jump
-        rBody.AddForce(currentVertVelocity, ForceMode.VelocityChange);
-
+        rBody.velocity = rBody.velocity + currentVertVelocity;
     }
 
     public void ApplyLocalGravity()
     {
         //Apply acceleration to the Rigidbody in the direction of directionGravity at rate localGravity
-        rBody.AddForce(localGravity * directionOfGravity, ForceMode.Acceleration);
-        FindVertVelocity();
-    }
-
-    public void FindVertVelocity()
-    {
         if (!isGrounded)
         {
-            currentVertVelocity += localGravity * directionOfGravity * Time.fixedDeltaTime;
-        }
-        else
+            currentVertVelocity += localGravity * directionOfGravity * Time.deltaTime;
+        } else
         {
             currentVertVelocity = Vector3.zero;
         }
@@ -148,30 +141,23 @@ public class AgentMotor3D : MonoBehaviour
     public void Accelerate()
     {
         UpdateAccelValues();
-        if (currentMoveSpeed < targetMoveSpeed)
-        {
-            rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-        } else if (targetMoveSpeed == 0)
-        {
-            if (rBody.velocity.x > 0.1f && accelerationX < 0f)
-            {
-                rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-            }
-            else if (rBody.velocity.x < -0.1f && accelerationX > 0f)
-            {
-                rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-            }
-        }
-
-        rBody.velocity = groundRotation * rBody.velocity;
+        rBody.velocity = groundRotation * currentMoveDirection * currentMoveSpeed + currentVertVelocity;
     }
 
     // To be called every call of Accelerate()
     public void UpdateAccelValues()
     {
+        
         currentMoveRotation = rBody.rotation;
-        currentMoveSpeed = Mathf.Abs(rBody.velocity.x);
-        currentMoveDirection = new Vector3(rBody.velocity.x, 0, 0).normalized;
+        if (accelerationTimer < currentAccelerationTime)
+        {
+            accelerationTimer += Time.deltaTime;
+            currentMoveSpeed += accelerationX * Time.deltaTime;
+        } else
+        {
+            currentMoveSpeed = targetMoveSpeed;
+        }
+        currentMoveDirection = targetMoveDirection;
     }
 
 
