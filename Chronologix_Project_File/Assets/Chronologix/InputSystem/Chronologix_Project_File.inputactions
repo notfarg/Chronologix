@@ -255,6 +255,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3edf4724-8aa3-4c79-bb6a-344da6de2268",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dd4b190e-332b-428f-b00a-470f2065209a",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",

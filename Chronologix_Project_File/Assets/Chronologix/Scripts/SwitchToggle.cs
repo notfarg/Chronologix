@@ -5,20 +5,15 @@ using UnityEngine.Events;
 
 public class SwitchToggle : MonoBehaviour
 {
-    public UnityEvent toggleSwitch;
-
-    private void Awake()
-    {
-        if (toggleSwitch == null)
-        {
-            toggleSwitch = new UnityEvent();
-        }
-
-        toggleSwitch.AddListener(Toggle);
-    }
+    public bool turnedOn;
 
     public void Toggle()
     {
-        Debug.Log("Switch toggled");
+        if (!turnedOn)
+        {
+            turnedOn = true;
+
+            GameManager.instance.numActiveSwitches++;
+        }
     }
 }

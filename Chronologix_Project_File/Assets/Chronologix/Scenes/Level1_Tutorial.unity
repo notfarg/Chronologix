@@ -464,6 +464,20 @@ PrefabInstance:
       propertyPath: _animationName
       value: Coze-Idle
       objectReference: {fileID: 0}
+    - target: {fileID: 8560398271910691674, guid: 979bfe9f472579b4288808c27a3f6256,
+        type: 3}
+      propertyPath: wallFound
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560398271910691674, guid: 979bfe9f472579b4288808c27a3f6256,
+        type: 3}
+      propertyPath: groundingDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 616856966, guid: 979bfe9f472579b4288808c27a3f6256, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 979bfe9f472579b4288808c27a3f6256, type: 3}
 --- !u!1 &89260581 stripped

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int sceneFrom;
     public int lastPortalID;
     public bool nearNPC;
+    public int numActiveSwitches = 0;
     private void Awake()
     {
         if (instance == null)
