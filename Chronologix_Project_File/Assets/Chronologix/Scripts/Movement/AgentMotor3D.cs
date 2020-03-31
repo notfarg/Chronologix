@@ -42,6 +42,7 @@ public class AgentMotor3D : MonoBehaviour
     public Vector3 wallCheckSize;
     public bool wallFound;
     public LayerMask wallLayers;
+
     private void Awake()
     {
         rBody = GetComponent<Rigidbody>();
@@ -151,7 +152,8 @@ public class AgentMotor3D : MonoBehaviour
         if (currentMoveSpeed < targetMoveSpeed)
         {
             rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-        } else if (targetMoveSpeed == 0)
+        }
+        else if (targetMoveSpeed == 0)
         {
             if (rBody.velocity.x > 0.1f && accelerationX < 0f)
             {
