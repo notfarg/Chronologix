@@ -111,7 +111,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &1363482603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageVal: 3
-  knockbackSpeedVal: 3
+  knockbackSpeedVal: 5
   thingsToDamage:
     serializedVersion: 2
     m_Bits: 512

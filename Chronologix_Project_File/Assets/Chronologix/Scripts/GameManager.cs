@@ -31,6 +31,16 @@ public class GameManager : MonoBehaviour
 
     private void OnLevelLoad(Scene level, LoadSceneMode loadMode)
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
