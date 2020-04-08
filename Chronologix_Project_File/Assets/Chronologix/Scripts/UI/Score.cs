@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
 
-    public Text score;
+    public Text scoreText;
+    public int score;
+    public string tagAffecting;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +24,10 @@ public class Score : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == tagAffecting)
         {
-            
+            score++;
+            scoreText.text = score.ToString();
         }
     }
 }
