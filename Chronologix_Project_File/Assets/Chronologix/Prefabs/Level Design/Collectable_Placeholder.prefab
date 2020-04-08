@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 606623966629112682}
   m_Layer: 12
   m_Name: Collectable_Placeholder
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4732858109488208492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -34.17325, y: 11.504308, z: 1130}
-  m_LocalScale: {x: 0.06818784, y: 0.06818784, z: 0.06818784}
+  m_LocalScale: {x: 0.051968, y: 0.051968, z: 0.051968}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

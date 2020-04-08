@@ -6,7 +6,7 @@ public class ScoreDisplay : MonoBehaviour
 {
     Text scoreText;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         scoreText = GetComponent<Text>();
 

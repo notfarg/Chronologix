@@ -38,7 +38,7 @@ public class TimeScaler : MonoBehaviour
             fakeBase = new GameObject();
             CopyComponent(rBody, fakeBase);
             CopyComponent(GetComponent<Collider>(), fakeBase);
-            fakeBase.layer = LayerMask.NameToLayer("PhysicsSim");
+            fakeBase.layer = LayerMask.NameToLayer("TimePhysicsSim");
         }
     }
 
