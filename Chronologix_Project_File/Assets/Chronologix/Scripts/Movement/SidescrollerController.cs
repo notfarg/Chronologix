@@ -28,6 +28,7 @@ public class SidescrollerController : AgentController3D
         motor.CheckGround();
         motor.FindGroundRotation();
         motor.ApplyLocalGravity();
+        
 
         if (!motor.isGrounded)
         {
@@ -40,7 +41,8 @@ public class SidescrollerController : AgentController3D
             {
                 currentSpeedData = groundMovement;
             }
-        } else
+        }
+        else
         {
             if (currentSpeedData != airMovement)
             {
@@ -48,31 +50,41 @@ public class SidescrollerController : AgentController3D
             }
         }
 
-        if (motor.CheckForWall(new Vector3(currentMoveInput.x,0,0).normalized))
+        if (currentMoveInput.x > 0)
         {
-            Move(Vector3.zero);
-        } else {
-            Move(currentMoveInput.normalized);
-            if (motor.isGrounded)
+            animationController.gameObject.transform.localScale = new Vector3(-0.5f, 0.5f, 1);
+            attackData.facingLeft = false;
+        }
+        else if (currentMoveInput.x < 0)
+        {
+            animationController.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            attackData.facingLeft = true;
+        }
+
+        if (motor.isGrounded)
+        {
+            if (currentMoveInput.x !=0)
             {
-                if (currentMoveInput.x > 0)
-                {
-                    animationController.gameObject.transform.localScale = new Vector3(-0.5f, 0.5f, 1);
-                    attackData.facingLeft = false;
-                    animationController.AnimationName = "Coze-Running";
-                }
-                else if (currentMoveInput.x < 0)
-                {
-                    animationController.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1);
-                    attackData.facingLeft = true;
-                    animationController.AnimationName = "Coze-Running";
-                }
-                else
-                {
-                    animationController.AnimationName = "Coze-Idle";
-                }
+                animationController.AnimationName = "Coze-Running";
+            }
+            else
+            {
+                animationController.AnimationName = "Coze-Idle";
             }
         }
+
+        if (currentMoveInput.x == 0 && motor.targetMoveSpeed != 0)
+        {
+            float timeToAccel = lastSpeedData.decelTimeFactor;
+            motor.CalcAcceleration(0, currentMoveInput, timeToAccel);
+        }
+        else if (currentMoveInput.x != 0 && motor.targetMoveSpeed == 0)
+        {
+            float timeToAccel = lastSpeedData.accelTimeFactor;
+            motor.CalcAcceleration(currentSpeedData.speed, currentMoveInput, timeToAccel);
+        }
+
+        motor.Accelerate();
     }
 
     public void JumpInput(InputAction.CallbackContext context)
@@ -97,18 +109,6 @@ public class SidescrollerController : AgentController3D
     {
         lastInput = currentMoveInput;
         currentMoveInput = new Vector2(context.ReadValue<Vector2>().x, 0);
-        if (currentMoveInput.x == 0) {
-            float timeToAccel = lastSpeedData.decelTimeFactor * motor.currentMoveSpeed;
-            motor.CalcAcceleration(0,currentMoveInput,timeToAccel);
-        } else if (lastInput.x == 0)
-        {
-            float timeToAccel = lastSpeedData.accelTimeFactor * Mathf.Abs(motor.currentMoveSpeed - currentSpeedData.speed);
-            motor.CalcAcceleration(currentSpeedData.speed, currentMoveInput, timeToAccel);
-        } else if (currentSpeedData.speed != lastSpeedData.speed)
-        {
-            float timeToAccel = lastSpeedData.swapOutTimeFactor * Mathf.Abs(lastSpeedData.speed - currentSpeedData.speed);
-            motor.CalcAcceleration(currentSpeedData.speed, currentMoveInput, timeToAccel);
-        }
 
         if (!AnalyticTracker.instance.playerHasMoved)
         {

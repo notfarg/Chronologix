@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public int lastPortalID;
     public bool nearNPC;
     public int numActiveSwitches = 0;
+    public int score = 0;
     private void Awake()
     {
         if (instance == null)
