@@ -888,6 +888,7 @@ GameObject:
   - component: {fileID: 1005893637}
   - component: {fileID: 1005893636}
   - component: {fileID: 1005893635}
+  - component: {fileID: 1005893638}
   m_Layer: 5
   m_Name: title
   m_TagString: Untagged
@@ -922,7 +923,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005893633}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c83fe81bef5454ab686df7618d836517, type: 2}
   m_CullingMode: 0
@@ -971,6 +972,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005893633}
   m_CullTransparentMesh: 0
+--- !u!114 &1005893638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005893633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573235e68d65e4bc08b2f2ea634717f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  pointA: {x: 500, y: 800, z: 0}
+  pointB: {x: 500, y: 785, z: 0}
 --- !u!1 &1033506557
 GameObject:
   m_ObjectHideFlags: 0
