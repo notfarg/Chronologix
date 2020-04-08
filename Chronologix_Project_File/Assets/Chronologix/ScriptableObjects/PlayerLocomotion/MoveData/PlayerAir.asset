@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerAir
   m_EditorClassIdentifier: Assembly-CSharp::MovementData
   type: 4
-  speed: 5
-  accelTimeFactor: 0.3
-  decelTimeFactor: 0.2
+  speed: 4
+  accelTimeFactor: 0.1
+  decelTimeFactor: 0.1
   quickTurnTimeFactor: 0.1
   swapOutTimeFactor: 0.1
