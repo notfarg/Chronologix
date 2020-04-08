@@ -123,7 +123,7 @@ public class AgentMotor3D : MonoBehaviour
         localGravity = 2 * jump.height / (Mathf.Pow((jump.timeToPeak), 2));
         float initialJumpVelocity = localGravity * (jump.timeToPeak);
         currentVertVelocity = initialJumpVelocity * -directionOfGravity.normalized;
-        rBody.velocity = rBody.velocity + currentVertVelocity;
+        rBody.AddForce(initialJumpVelocity * Vector3.up, ForceMode.VelocityChange);
     }
 
     public void ApplyLocalGravity()
@@ -131,8 +131,10 @@ public class AgentMotor3D : MonoBehaviour
         //Apply acceleration to the Rigidbody in the direction of directionGravity at rate localGravity
         if (!isGrounded)
         {
-            currentVertVelocity += localGravity * directionOfGravity * Time.deltaTime;
-        } else
+            rBody.AddForce(localGravity * Vector3.down, ForceMode.Acceleration);
+            currentVertVelocity += localGravity * Vector3.down * Time.deltaTime;
+        }
+        else
         {
             currentVertVelocity = Vector3.zero;
         }
@@ -140,50 +142,42 @@ public class AgentMotor3D : MonoBehaviour
 
     public void Accelerate()
     {
+        
+        if (accelerationTimer < currentAccelerationTime)
+        {
+            rBody.AddForce(groundRotation * (accelerationX * targetMoveDirection), ForceMode.Acceleration);
+        } else
+        {
+            Vector3 currentVec = rBody.velocity - currentVertVelocity;
+            Vector3 targetVec = groundRotation * (targetMoveSpeed * targetMoveDirection);
+            Vector3 difference = (targetVec - currentVec)/Time.deltaTime;
+            rBody.AddForce(difference, ForceMode.Acceleration);
+        }
         UpdateAccelValues();
-        rBody.velocity = groundRotation * currentMoveDirection * currentMoveSpeed + currentVertVelocity;
     }
 
     // To be called every call of Accelerate()
     public void UpdateAccelValues()
     {
-        
-        currentMoveRotation = rBody.rotation;
-        if (accelerationTimer < currentAccelerationTime)
+        if (accelerationTimer <= currentAccelerationTime)
         {
             accelerationTimer += Time.deltaTime;
-            currentMoveSpeed += accelerationX * Time.deltaTime;
-        } else
-        {
-            currentMoveSpeed = targetMoveSpeed;
         }
         currentMoveDirection = targetMoveDirection;
-    }
-
-
-    // Accelerate() when a new speed/direction is being considered
-    public void Accelerate(float speed, Vector3 targetDir, float time)
-    {
-        CalcAcceleration(speed, targetDir, time);
+        currentMoveSpeed = (rBody.velocity - currentVertVelocity).magnitude;
     }
 
     // Calculate Acceleratation values
     public void CalcAcceleration(float targetSpd, Vector3 targetDir, float time)
     {
-        targetMoveDirection = targetDir.normalized;
+        if (targetDir != Vector3.zero)
+        {
+            targetMoveDirection = targetDir.normalized;
+        }
         targetMoveSpeed = targetSpd;
         currentAccelerationTime = time;
         accelerationTimer = 0;
-        startMoveDirection = new Vector3(rBody.velocity.x, 0, 0).normalized;
-        startMoveSpeed = Mathf.Abs(rBody.velocity.x);
-
-        AssignAcceleration();
+        accelerationX = (targetMoveSpeed - currentMoveSpeed) / currentAccelerationTime;
     }
 
-    public void AssignAcceleration()
-    {
-        accelerationX = (targetMoveDirection.x * targetMoveSpeed - startMoveDirection.x * startMoveSpeed) / currentAccelerationTime;
-        accelerationY = (targetMoveDirection.y * targetMoveSpeed - startMoveDirection.y * startMoveSpeed) / currentAccelerationTime;
-        accelerationZ = (targetMoveDirection.z * targetMoveSpeed - startMoveDirection.z * startMoveSpeed) / currentAccelerationTime;
-    }
 }

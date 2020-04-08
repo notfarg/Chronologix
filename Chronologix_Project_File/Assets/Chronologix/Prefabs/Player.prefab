@@ -473,7 +473,7 @@ MonoBehaviour:
   attackPrefab: {fileID: 1505100397989814655, guid: 152c162834ed0064991464ac90432a4a,
     type: 3}
   facingLeft: 0
-  damageVal: 2
+  damageVal: 1
   knockbackSpeedVal: 2
 --- !u!114 &322755830
 MonoBehaviour:
