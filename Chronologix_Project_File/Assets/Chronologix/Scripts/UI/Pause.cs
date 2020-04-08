@@ -25,6 +25,7 @@ public class Pause : MonoBehaviour
         optionsWindow.SetActive(false);
         confirmMenuWindow.SetActive(false);
         confirmQuitWindow.SetActive(false);
+        AnalyticTracker.instance.PauseMenuOpened();
     }
 
     public void Resume()
@@ -61,25 +62,26 @@ public class Pause : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        Debug.Log("Go back to main menu");
+        GameManager.instance.LoadScene(0);
     }
 
     public void QuitGame()
     {
-        Debug.Log("Quit Game");
+        Application.Quit();
     }
 
     public void OpenSound()
     {
         soundMenuContent.SetActive(true);
         controlsMenuContent.SetActive(false);
-
     }
 
     public void OpenControls()
     {
         controlsMenuContent.SetActive(true);
         soundMenuContent.SetActive(false);
+
+        AnalyticTracker.instance.ExitingControlsMenu();
 
     }
 }

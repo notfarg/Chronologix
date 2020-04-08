@@ -15,9 +15,6 @@ public class AgentMotor3D : MonoBehaviour
     public LayerMask groundingLayers;
 
     //Slopes
-    public bool useSlopeSlowDown;
-    public float slopeSlowDownAngleThreshold;
-    public float slopeStopSlideAngleThreshold;
     public Quaternion groundRotation;
     public Vector3 groundNormal;
     public float groundAngle;
@@ -59,6 +56,7 @@ public class AgentMotor3D : MonoBehaviour
             if (groundingLayers == (groundingLayers | (1 << boxCastHits[0].collider.gameObject.layer)))
             {
                 isGrounded = true;
+                rBody.velocity = new Vector3(rBody.velocity.x, 0, 0);
             }
             else
             {
@@ -79,11 +77,13 @@ public class AgentMotor3D : MonoBehaviour
     public bool CheckForWall(Vector3 direction)
     {
         RaycastHit[] boxCastHits = new RaycastHit[1];
-        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y / 2 + 0.1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, direction, boxCastHits, Quaternion.identity, wallCheckDistance, wallLayers) != 0)
+        if (Physics.BoxCastNonAlloc(transform.position + Vector3.up * (wallCheckSize.y / 2 + 1f) + direction.normalized * wallCheckDistance, wallCheckSize / 2, direction, boxCastHits, groundRotation, wallCheckDistance, wallLayers) != 0)
         {
-            return true;
+            wallFound = true;
+            return wallFound;
         }
-        return false;
+        wallFound = false;
+        return wallFound;
     }
     public void FindGroundRotation()
     {
@@ -91,8 +91,8 @@ public class AgentMotor3D : MonoBehaviour
         {
             RaycastHit hit1, hit2, hit3;
             Physics.Raycast(new Ray(transform.position, directionOfGravity), out hit1, Mathf.Infinity, groundingLayers);
-            Physics.Raycast(new Ray(transform.position + transform.forward * 0.1f, directionOfGravity), out hit2, Mathf.Infinity, groundingLayers);
-            Physics.Raycast(new Ray(transform.position + transform.right * 0.1f, directionOfGravity), out hit3, Mathf.Infinity, groundingLayers);
+            Physics.Raycast(new Ray(transform.position + transform.right * 0.1f, directionOfGravity), out hit2, Mathf.Infinity, groundingLayers);
+            Physics.Raycast(new Ray(transform.position + transform.forward * 0.1f, directionOfGravity), out hit3, Mathf.Infinity, groundingLayers);
 
             if (((hit2.point - transform.position).magnitude <= (hit1.point - transform.position).magnitude * 5) && ((hit3.point - transform.position).magnitude <= (hit1.point - transform.position).magnitude * 5))
             {
@@ -123,23 +123,16 @@ public class AgentMotor3D : MonoBehaviour
         localGravity = 2 * jump.height / (Mathf.Pow((jump.timeToPeak), 2));
         float initialJumpVelocity = localGravity * (jump.timeToPeak);
         currentVertVelocity = initialJumpVelocity * -directionOfGravity.normalized;
-        //Apply the jump
-        rBody.AddForce(currentVertVelocity, ForceMode.VelocityChange);
-
+        rBody.AddForce(initialJumpVelocity * Vector3.up, ForceMode.VelocityChange);
     }
 
     public void ApplyLocalGravity()
     {
         //Apply acceleration to the Rigidbody in the direction of directionGravity at rate localGravity
-        rBody.AddForce(localGravity * directionOfGravity, ForceMode.Acceleration);
-        FindVertVelocity();
-    }
-
-    public void FindVertVelocity()
-    {
         if (!isGrounded)
         {
-            currentVertVelocity += localGravity * directionOfGravity * Time.deltaTime;
+            rBody.AddForce(localGravity * Vector3.down, ForceMode.Acceleration);
+            currentVertVelocity += localGravity * Vector3.down * Time.deltaTime;
         }
         else
         {
@@ -149,55 +142,42 @@ public class AgentMotor3D : MonoBehaviour
 
     public void Accelerate()
     {
-        UpdateAccelValues();
-        if (currentMoveSpeed < targetMoveSpeed)
+        
+        if (accelerationTimer < currentAccelerationTime)
         {
-            rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-        } else if (targetMoveSpeed == 0)
+            rBody.AddForce(groundRotation * (accelerationX * targetMoveDirection), ForceMode.Acceleration);
+        } else
         {
-            if (rBody.velocity.x > 0.1f && accelerationX < 0f)
-            {
-                rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-            }
-            else if (rBody.velocity.x < -0.1f && accelerationX > 0f)
-            {
-                rBody.AddForce(new Vector3(accelerationX, accelerationY, accelerationZ), ForceMode.Acceleration);
-            }
+            Vector3 currentVec = rBody.velocity - currentVertVelocity;
+            Vector3 targetVec = groundRotation * (targetMoveSpeed * targetMoveDirection);
+            Vector3 difference = (targetVec - currentVec)/Time.deltaTime;
+            rBody.AddForce(difference, ForceMode.Acceleration);
         }
+        UpdateAccelValues();
     }
 
     // To be called every call of Accelerate()
     public void UpdateAccelValues()
     {
-        currentMoveRotation = rBody.rotation;
-        currentMoveSpeed = Mathf.Abs(rBody.velocity.x);
-        currentMoveDirection = new Vector3(rBody.velocity.x, 0, 0).normalized;
-    }
-
-
-    // Accelerate() when a new speed/direction is being considered
-    public void Accelerate(float speed, Vector3 targetDir, float time)
-    {
-        CalcAcceleration(speed, targetDir, time);
+        if (accelerationTimer <= currentAccelerationTime)
+        {
+            accelerationTimer += Time.deltaTime;
+        }
+        currentMoveDirection = targetMoveDirection;
+        currentMoveSpeed = (rBody.velocity - currentVertVelocity).magnitude;
     }
 
     // Calculate Acceleratation values
     public void CalcAcceleration(float targetSpd, Vector3 targetDir, float time)
     {
-        targetMoveDirection = targetDir.normalized;
+        if (targetDir != Vector3.zero)
+        {
+            targetMoveDirection = targetDir.normalized;
+        }
         targetMoveSpeed = targetSpd;
         currentAccelerationTime = time;
         accelerationTimer = 0;
-        startMoveDirection = new Vector3(rBody.velocity.x, 0, 0).normalized;
-        startMoveSpeed = Mathf.Abs(rBody.velocity.x);
-
-        AssignAcceleration();
+        accelerationX = (targetMoveSpeed - currentMoveSpeed) / currentAccelerationTime;
     }
 
-    public void AssignAcceleration()
-    {
-        accelerationX = (targetMoveDirection.x * targetMoveSpeed - startMoveDirection.x * startMoveSpeed) / currentAccelerationTime;
-        accelerationY = (targetMoveDirection.y * targetMoveSpeed - startMoveDirection.y * startMoveSpeed) / currentAccelerationTime;
-        accelerationZ = (targetMoveDirection.z * targetMoveSpeed - startMoveDirection.z * startMoveSpeed) / currentAccelerationTime;
-    }
 }

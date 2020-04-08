@@ -53,6 +53,8 @@ public class TimeStopAffector : MonoBehaviour
         {
             growthTimer = Mathf.Clamp( growthTimer + Time.deltaTime, 0, maxGrowthTime);
             timeStopCollider.radius = startRadius + (maxSize - startRadius) * (rateOfGrowth.Evaluate(growthTimer / maxGrowthTime));
+            float scaleFactor = timeStopCollider.radius * 0.07f / 0.5f;
+            transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
             yield return new WaitForEndOfFrame();
         }
         growthTimer = 0;
@@ -64,6 +66,8 @@ public class TimeStopAffector : MonoBehaviour
         {
             shrinkTimer = Mathf.Clamp(shrinkTimer + Time.deltaTime, 0, maxShrinkTime);
             timeStopCollider.radius = startRadius + (maxSize - startRadius) * (rateofShrink.Evaluate(shrinkTimer / maxShrinkTime));
+            float scaleFactor = timeStopCollider.radius * 0.07f / 0.5f;
+            transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
             yield return new WaitForEndOfFrame();
         }
         Destroy(this.gameObject);

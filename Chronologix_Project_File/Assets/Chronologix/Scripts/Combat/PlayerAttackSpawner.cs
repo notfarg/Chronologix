@@ -24,7 +24,16 @@ public class PlayerAttackSpawner : MonoBehaviour
 
             currentAttack.GetComponent<PlayerAttack>().damageVal = damageVal;
             currentAttack.GetComponent<PlayerAttack>().knockbackSpeedVal = knockbackSpeedVal;
+
+            if (!AnalyticTracker.instance.playerHasAttacked)
+            {
+                AnalyticTracker.instance.FirstAttack();
+            }
+
+            if (GameManager.instance.nearNPC)
+            {
+                AnalyticTracker.instance.NPCInteract("attack");
+            }
         }
-        
     }
 }

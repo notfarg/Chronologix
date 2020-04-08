@@ -22,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
         else if (other.gameObject.layer == LayerMask.NameToLayer("Breakable"))
         {
             // deal damage to breakable object
+            AnalyticTracker.instance.ObjectDestroyed();
             Destroy(other.gameObject);
         } else if (other.gameObject.layer == LayerMask.NameToLayer("Switch"))
         {

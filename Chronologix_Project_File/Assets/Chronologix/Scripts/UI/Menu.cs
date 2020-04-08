@@ -27,14 +27,14 @@ public class Menu : MonoBehaviour
         controlsMenuContent.SetActive(false);
     }
 
-    public void ChangeSceene (string sceneName)
+    public void ChangeSceene (int sceneID)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneID);
     }
 
     public void QuitGame()
     {
-        Debug.Log("Quit Game");
+        Application.Quit();
     }
 
     public void OptionsMenu()
@@ -63,6 +63,7 @@ public class Menu : MonoBehaviour
     {
         controlsMenuContent.SetActive(true);
         soundMenuContent.SetActive(false);
+        AnalyticTracker.instance.ExitingControlsMenu();
 
     }
 }

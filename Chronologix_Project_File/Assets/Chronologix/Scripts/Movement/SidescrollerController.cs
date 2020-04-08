@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using Spine.Unity;
 
 [RequireComponent(typeof(PlayerInput))]
 public class SidescrollerController : AgentController3D
 {
     public PlayerAttackSpawner attackData;
-
+    public SkeletonAnimation animationController;
     private void Awake()
     {
         motor.CheckGround();
@@ -24,31 +25,66 @@ public class SidescrollerController : AgentController3D
     // Update is called once per frame
     void Update()
     {
-        motor.ApplyLocalGravity();
-        motor.FindGroundRotation();
         motor.CheckGround();
-        if (motor.isGrounded)
+        motor.FindGroundRotation();
+        motor.ApplyLocalGravity();
+        
+
+        if (!motor.isGrounded)
         {
-            currentSpeedData = groundMovement;
-        } else
-        {
-            currentSpeedData = airMovement;
+            animationController.AnimationName = "Coze-Jumping";
         }
 
-        if (motor.CheckForWall(new Vector3(currentMoveInput.x,0,0).normalized))
+        if (motor.isGrounded)
         {
-            Move(Vector3.zero);
-        } else {
-            Move(currentMoveInput.normalized);
+            if (currentSpeedData != groundMovement)
+            {
+                currentSpeedData = groundMovement;
+            }
+        }
+        else
+        {
+            if (currentSpeedData != airMovement)
+            {
+                currentSpeedData = airMovement;
+            }
         }
 
         if (currentMoveInput.x > 0)
         {
+            animationController.gameObject.transform.localScale = new Vector3(-0.5f, 0.5f, 1);
             attackData.facingLeft = false;
-        } else  if (currentMoveInput.x < 0)
+        }
+        else if (currentMoveInput.x < 0)
         {
+            animationController.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1);
             attackData.facingLeft = true;
         }
+
+        if (motor.isGrounded)
+        {
+            if (currentMoveInput.x !=0)
+            {
+                animationController.AnimationName = "Coze-Running";
+            }
+            else
+            {
+                animationController.AnimationName = "Coze-Idle";
+            }
+        }
+
+        if (currentMoveInput.x == 0 && motor.targetMoveSpeed != 0)
+        {
+            float timeToAccel = lastSpeedData.decelTimeFactor;
+            motor.CalcAcceleration(0, currentMoveInput, timeToAccel);
+        }
+        else if (currentMoveInput.x != 0 && motor.targetMoveSpeed == 0)
+        {
+            float timeToAccel = lastSpeedData.accelTimeFactor;
+            motor.CalcAcceleration(currentSpeedData.speed, currentMoveInput, timeToAccel);
+        }
+
+        motor.Accelerate();
     }
 
     public void JumpInput(InputAction.CallbackContext context)
@@ -57,10 +93,26 @@ public class SidescrollerController : AgentController3D
         {
             Jump();
         }
+
+        if (!AnalyticTracker.instance.playerHasJumped)
+        {
+            AnalyticTracker.instance.FirstJump();
+        }
+
+        if (GameManager.instance.nearNPC)
+        {
+            AnalyticTracker.instance.NPCInteract("jump");
+        }
     }
 
     public void MoveInput(InputAction.CallbackContext context)
     {
-        currentMoveInput = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
+        lastInput = currentMoveInput;
+        currentMoveInput = new Vector2(context.ReadValue<Vector2>().x, 0);
+
+        if (!AnalyticTracker.instance.playerHasMoved)
+        {
+            AnalyticTracker.instance.FirstMove();
+        }
     }
 }
