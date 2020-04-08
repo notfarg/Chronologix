@@ -30,7 +30,6 @@ public class CombatHealth : MonoBehaviour
         {
             // Destroy anything else. add death animations here prior to that.
             AnalyticTracker.instance.EnemyKilled();
-            GameManager.instance.score += 10;
             Destroy(gameObject);
         }
     }

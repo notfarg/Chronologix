@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageVal: 2
-  knockbackSpeedVal: 5
+  knockbackSpeedVal: 2
 --- !u!54 &6772375742086774142
 Rigidbody:
   m_ObjectHideFlags: 0
