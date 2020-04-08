@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     public Image health;
-    public CombatHealth playerHealth;
+    CombatHealth playerHealth;
+    private void Start()
+    {
+        playerHealth = GameManager.instance.player.GetComponent<CombatHealth>();
+    }
 
     // Update is called once per frame
     void Update()

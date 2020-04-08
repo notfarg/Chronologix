@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 1360369450}
   - component: {fileID: 161437929}
   - component: {fileID: 1718577288373325403}
-  - component: {fileID: 1251749103}
   - component: {fileID: 1251749104}
   - component: {fileID: 1923396513}
+  - component: {fileID: 1726828433}
   m_Layer: 15
   m_Name: Enemy_Placeholder
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 7659525549010208638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 131.86, y: -15.07, z: -3.133817}
-  m_LocalScale: {x: 0.070909806, y: 0.115920454, z: 0.701}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 31b034c82b3b2d242b02087ebfe61f0e, type: 3}
-  m_Color: {r: 0.5754717, g: 0.008143453, b: 0.008143453, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 43319e3a3f2119e4494840b519a4cd1a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,10 +97,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.7824422
-  m_Height: 15.863345
+  m_Radius: 1
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: -0.20124754, y: 0.36924294, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1360369450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,27 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 2
   maxHealth: 2
---- !u!114 &1251749103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7659525549010208638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2840c45c86e8d534ca5e405d263b4fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lastInput: {x: 0, y: 0}
-  motor: {fileID: 1251749104}
-  currentMoveInput: {x: 0, y: 0}
-  groundFrictionFactor: 0
-  groundMovement: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
-  airMovement: {fileID: 11400000, guid: c5b56390f24fe114ea6227f237e9b8a4, type: 2}
-  currentSpeedData: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
-  lastSpeedData: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
-  basicJumpData: {fileID: 11400000, guid: 5b3a106ca1f1c15438d6b93fd05c7c55, type: 2}
 --- !u!114 &1251749104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,16 +160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12272c64cedc03c46b7b244cb123657b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rBody: {fileID: 0}
+  rBody: {fileID: 161437929}
   directionOfGravity: {x: 0, y: -1, z: 0}
   isGrounded: 0
-  groundingDistance: 0.01
+  groundingDistance: 1.1
   groundingLayers:
     serializedVersion: 2
     m_Bits: 256
-  useSlopeSlowDown: 0
-  slopeSlowDownAngleThreshold: 30
-  slopeStopSlideAngleThreshold: 50
   groundRotation: {x: 0, y: 0, z: 0, w: 0}
   groundNormal: {x: 0, y: 0, z: 0}
   groundAngle: 0
@@ -232,3 +208,26 @@ MonoBehaviour:
   timeScale: 0
   inTimeStopper: 0
   timeStopper: {fileID: 0}
+--- !u!114 &1726828433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659525549010208638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b4c59325bd5cb47ab13b595a237cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastInput: {x: 0, y: 0}
+  motor: {fileID: 0}
+  currentMoveInput: {x: 0, y: 0}
+  groundFrictionFactor: 0
+  groundMovement: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
+  airMovement: {fileID: 11400000, guid: c5b56390f24fe114ea6227f237e9b8a4, type: 2}
+  currentSpeedData: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
+  lastSpeedData: {fileID: 11400000, guid: aff12222a1028234e99559d0d80802e2, type: 2}
+  basicJumpData: {fileID: 11400000, guid: 5b3a106ca1f1c15438d6b93fd05c7c55, type: 2}
+  jumpTimeInterval: 5
+  jumpTimer: 0
